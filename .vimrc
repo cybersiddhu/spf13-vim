@@ -16,8 +16,13 @@
 " }
 "
 " Custom vim configuration path {
-    if !exists($VIMDIR)
-        let $VIMDIR=$HOME
+    if exists($VIMDIR)
+        let g:$MYVUNDLE=$VIMDIR.'/bundle/vundle'
+        let g:$MYBUNDLE=$VIMDIR.'/bundle'
+    else
+        let g:$VIMDIR=$HOME
+        let g:$MYVUNDLE=$VIMDIR.'/.vim/bundle/vundle'
+        let g:$MYBUNDLE=$VIMDIR.'/.vim/bundle'
     endif
 
 " }
@@ -60,9 +65,8 @@
         " The next three lines ensure that the ~/.vim/bundle/ system works
         filetype on
         filetype off
-        let $MYVUNDLEPATH=$VIMDIR . '/bundle/vundle'
-        set rtp+=$MYVUNDLEPATH
-        call vundle#rc($VIMDIR.'/bundles')
+        set rtp+=$MYVUNDLE
+        call vundle#rc($MYBUNDLE)
     " }
 
 " }
