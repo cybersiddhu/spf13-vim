@@ -1,0 +1,73 @@
+UnBundle 'kchmck/vim-coffee-script'
+UnBundle 'tpope/vim-cucumber'
+UnBundle 'quentindecock/vim-cucumber-align-pipes'
+UnBundle 'myusuf3/numbers.vim'
+UnBundle 'godlygeek/csapprox'
+UnBundle 'spf13/vim-gocode'
+
+" Custom solarized setup {
+    let solarizeddir = bundle_dir . '/bundles/vim-colors-solarized'
+    if isdirectory(solarizeddir)
+        set t_Co=256
+        let g:solarized_contrast="normal"    "default value is normal
+        let g:solarized_visibility="normal"    "default value is normal
+        let g:solarized_termcolors=16
+        set background=dark
+        color solarized
+    endif
+" }
+
+set nocursorline
+
+" location for vimswap and other files {
+    let g:spf13_consolidated_directory = $VIMDIR . '/backups'
+" }
+
+" perl folding {
+    let perl_fold = 1
+    let perl_fold_blocks = 1
+" }
+
+" mapping perltidy {
+    au FileType perl imap <Leader>pt <Esc>:%!perltidy -q<CR>
+    au FileType perl nmap <Leader>pt :%!perltidy -q<CR>
+" }
+
+
+" Extra  Fugitive {
+    nnoremap <silent> <Leader>ga :Gwrite<CR>
+" }
+
+" Personal keybindings {
+    imap <silent> <Leader>w <Esc>:write<CR>
+    nmap <silent> <Leader>w :write<CR>
+" }
+
+" Session settings {
+   let  sessionman_save_on_exit=1
+" }
+
+" Syntastic plugin {
+    let g:syntastic_perl_lib_path = './lib'
+"}
+
+" golang vim support {
+"    filetype off
+"    filetype plugin indent off
+"    set rtp+=/usr/share/vim/addons
+"    filetype plugin indent on
+"    syntax on
+" }
+
+" golang tagbar support {
+let g:tagbar_type_go = {
+    \ 'ctagstype': 'go',
+        \ 'kinds' : [
+            \'p:package',
+            \'f:function',
+            \'v:variables',
+            \'t:type',
+            \'c:const'
+       \]
+   \}
+" }

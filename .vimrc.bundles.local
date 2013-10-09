@@ -1,0 +1,3 @@
+Bundle 'c9s/perlomni.vim'
+Bundle 'Blackrush/vim-gocode'
+Bundle 'dgryski/vim-godef'
