@@ -14,18 +14,27 @@
 "
 "   You can find me at http://spf13.com
 " }
+"
+" Custom vim configuration path {
+    if !exists($VIMDIR)
+        let $VIMDIR=$HOME
+    endif
+
+" }
 
 " Before {
 
     " Use local before if available {
-        if filereadable(expand("~/.vimrc.before.local"))
-            source ~/.vimrc.before.local
+        if filereadable(expand($VIMDIR ."/.vimrc.before.local"))
+            let $MYBL = $VIMDIR. '/.vimrc.before.local'
+            source $MYBL
         endif
     " }
 
     " Use fork before if available {
-        if filereadable(expand("~/.vimrc.before.fork"))
-            source ~/.vimrc.before.fork
+        if filereadable(expand($VIMDIR ."/.vimrc.before.fork"))
+            let $MYBF = $VIMDIR. '/.vimrc.before.fork'
+            source $MYBF
         endif
     " }
 " }
@@ -35,7 +44,7 @@
     " Basics {
         set nocompatible        " Must be first line
         if !(has('win16') || has('win32') || has('win64'))
-            set shell=/bin/sh
+            set shell=$SHELL
         endif
     " }
 
@@ -51,8 +60,9 @@
         " The next three lines ensure that the ~/.vim/bundle/ system works
         filetype on
         filetype off
-        set rtp+=~/.vim/bundle/vundle
-        call vundle#rc()
+        let $MYVUNDLEPATH=$VIMDIR . '/bundle/vundle'
+        set rtp+=$MYVUNDLEPATH
+        call vundle#rc($VIMDIR.'/bundles')
     " }
 
 " }
@@ -60,20 +70,24 @@
 " Bundles {
 
     " Use local bundles if available {
-        if filereadable(expand("~/.vimrc.bundles.local"))
-            source ~/.vimrc.bundles.local
-        endif
+        if filereadable(expand($VIMDIR . "/.vimrc.bundles.local"))
+            let $MYBUL = $VIMDIR. '/.vimrc.bundles.local'
+            source $MYBUL
+        endif    
     " }
 
     " Use fork bundles if available {
-        if filereadable(expand("~/.vimrc.bundles.fork"))
-            source ~/.vimrc.bundles.fork
+        if filereadable(expand($VIMDIR . "/.vimrc.bundles.fork"))
+            let $MYBF = $VIMDIR. '/.vimrc.bundles.fork'
+            source $MYBF
         endif
+
     " }
 
     " Use bundles config {
-        if filereadable(expand("~/.vimrc.bundles"))
-            source ~/.vimrc.bundles
+        if filereadable(expand($VIMDIR . "/.vimrc.bundles"))
+            let $MYB = $VIMDIR. '/.vimrc.bundles'
+            source $MYB
         endif
     " }
 
@@ -159,7 +173,7 @@
 
 " Vim UI {
 
-    if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+    if filereadable(expand($VIMDIR. "/bundles/vim-colors-solarized/colors/solarized.vim"))
         let g:solarized_termcolors=256
         let g:solarized_termtrans=1
         let g:solarized_contrast="high"
@@ -933,21 +947,23 @@
 " }
 
 " Use fork vimrc if available {
-    if filereadable(expand("~/.vimrc.fork"))
-        source ~/.vimrc.fork
+    if filereadable(expand($VIMDIR. "/.vimrc.fork"))
+        let $MYF = $VIMDIR. '/.vimrc.fork'
+        source $MYF
     endif
 " }
 
 " Use local vimrc if available {
-    if filereadable(expand("~/.vimrc.local"))
-        source ~/.vimrc.local
+   if filereadable(expand($VIMDIR. "/.vimrc.local"))
+       let $MYL = $VIMDIR. '/.vimrc.local'
+       source $MYL
     endif
 " }
 
 " Use local gvimrc if available and gui is running {
-    if has('gui_running')
-        if filereadable(expand("~/.gvimrc.local"))
-            source ~/.gvimrc.local
-        endif
-    endif
+    "if has('gui_running')
+        "if filereadable(expand("~/.gvimrc.local"))
+            "source ~/.gvimrc.local
+        "endif
+    "endif
 " }
