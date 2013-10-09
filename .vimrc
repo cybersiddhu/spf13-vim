@@ -16,13 +16,13 @@
 " }
 "
 " Custom vim configuration path {
-    if exists($VIMDIR)
-        let g:$MYVUNDLE=$VIMDIR.'/bundle/vundle'
-        let g:$MYBUNDLE=$VIMDIR.'/bundle'
+    if exists('$VIMDIR')
+        let $MYVUNDLE=$VIMDIR.'/bundle/vundle'
+        let $MYBUNDLE=$VIMDIR.'/bundle'
     else
-        let g:$VIMDIR=$HOME
-        let g:$MYVUNDLE=$VIMDIR.'/.vim/bundle/vundle'
-        let g:$MYBUNDLE=$VIMDIR.'/.vim/bundle'
+        let $VIMDIR=$HOME
+        let $MYVUNDLE=$VIMDIR.'/.vim/bundle/vundle'
+        let $MYBUNDLE=$VIMDIR.'/.vim/bundle'
     endif
 
 " }
@@ -49,7 +49,7 @@
     " Basics {
         set nocompatible        " Must be first line
         if !(has('win16') || has('win32') || has('win64'))
-            set shell=$SHELL
+           " set shell=$SHELL
         endif
     " }
 
@@ -432,13 +432,13 @@
     " }
 
     " Ctags {
-        set tags=./tags;/,~/.vimtags
+        "set tags=./tags;/,~/.vimtags
 
-        " Make tags placed in .git/tags file available in all levels of a repository
-        let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
-        if gitroot != ''
-            let &tags = &tags . ',' . gitroot . '/.git/tags'
-        endif
+        "" Make tags placed in .git/tags file available in all levels of a repository
+        "let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
+        "if gitroot != ''
+            "let &tags = &tags . ',' . gitroot . '/.git/tags'
+        "endif
     " }
 
     " AutoCloseTag {
