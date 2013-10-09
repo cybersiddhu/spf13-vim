@@ -7,7 +7,6 @@
         |___/ .__/|_| |_|____/        \_/  |_|_| |_| |_|
             |_|
 
-The changes are made primarilly to work with isolated [docker](http://docker.io) container for development.
 
 spf13-vim is a distribution of vim plugins and resources for Vim, Gvim and [MacVim].
 
@@ -21,7 +20,16 @@ Unlike traditional VIM plugin structure, which similar to UNIX throws all files 
 
 Great care has been taken to ensure that each plugin plays nicely with others, and optional configuration has been provided for what we believe is the most efficient use.
 
-Lastly (and perhaps, most importantly) It is completely cross platform. It works well on Windows, Linux and OSX without any modifications or additional configurations. If you are using [MacVim] or Gvim additional features are enabled. So regardless of your environment just clone and run.
+
+# Use it or NOT Use it
+First keep in mind that the customization here are primarilly to work with
+isolated [docker](http://docker.io) container for development. However, in
+general, spf13-vim setup will work well with some previous vim experience.
+Somebody new or starting out and then installing with automated script instead
+might lead to steeper learning curve. It's better to read the config files and
+understand what they are doing before jumping into installation. Then possibly
+make a fork, customize and use that setup. The first of course is to turn off
+the generous list of __bundles__ it will load by default.
 
 # spf13-vim 3.0
 January 2012 spf13-vim released it's third major iteration. **This is important as it requires a reinstall**, but trust me it's worth it.
