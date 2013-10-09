@@ -18,7 +18,7 @@
 " spf13 options {
 
     " Prevent automatically changing to open file directory
-    "   let g:spf13_no_autochdir = 1
+       let g:spf13_no_autochdir = 1
 
     " Disable views
     "   let g:spf13_no_views = 1
@@ -45,11 +45,11 @@
     "   let g:airline_powerline_fonts = 1
 
     " vim files directory
-    "    let g:spf13_consolidated_directory = $VIMDIR . '/backups'
+        let g:spf13_consolidated_directory = $VIMDIR . '/backups'
     "   let g:spf13_consolidated_directory = <full path to desired directory>
     "   eg: let g:spf13_consolidated_directory = $HOME . '/.vim/'
     
     " bundle groups
-    "    let g:spf13_bundle_groups=['general', 'programming','snipmate', 'python', 'go', 'javascript', 'html', 'misc']
+        let g:spf13_bundle_groups=['general', 'programming','snipmate', 'python', 'go', 'javascript', 'html', 'misc']
 
 " }
