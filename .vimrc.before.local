@@ -50,6 +50,6 @@
     "   eg: let g:spf13_consolidated_directory = $HOME . '/.vim/'
     
     " bundle groups
-        let g:spf13_bundle_groups=['general', 'programming','snipmate', 'python', 'go', 'javascript', 'html', 'misc']
+        let g:spf13_bundle_groups=['general', 'programming','neocomplcache', 'python', 'go', 'javascript', 'html', 'misc']
 
 " }
