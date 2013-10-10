@@ -6,7 +6,7 @@ UnBundle 'godlygeek/csapprox'
 UnBundle 'spf13/vim-gocode'
 
 " Custom solarized setup {
-    let solarizeddir = bundle_dir . '/bundles/vim-colors-solarized'
+    let solarizeddir = $MYBUNDLE . '/vim-colors-solarized'
     if isdirectory(solarizeddir)
         set t_Co=256
         let g:solarized_contrast="normal"    "default value is normal

@@ -177,7 +177,7 @@
 
 " Vim UI {
 
-    if filereadable(expand($VIMDIR. "/bundles/vim-colors-solarized/colors/solarized.vim"))
+    if filereadable(expand($MYBUNDLE. "/vim-colors-solarized/colors/solarized.vim"))
         let g:solarized_termcolors=256
         let g:solarized_termtrans=1
         let g:solarized_contrast="high"
