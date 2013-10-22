@@ -554,9 +554,9 @@
 
     " PythonMode {
         " Disable if python support not present
-        if !has('python')
-            let g:pymode = 1
-        endif
+        "if !has('python')
+            "let g:pymode = 0
+        "endif
     " }
 
     " Fugitive {
