@@ -4,6 +4,7 @@ UnBundle 'quentindecock/vim-cucumber-align-pipes'
 UnBundle 'myusuf3/numbers.vim'
 UnBundle 'godlygeek/csapprox'
 UnBundle 'spf13/vim-gocode'
+UnBundle 'pythoncomplete'
 
 " Custom solarized setup {
     let solarizeddir = $MYBUNDLE . '/vim-colors-solarized'
