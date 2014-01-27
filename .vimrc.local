@@ -24,6 +24,17 @@ set nocursorline
     let g:spf13_consolidated_directory = $VIMDIR . '/backups'
 " }
 
+" The " character will not be paired for vim config files {
+    let g:autoclose_vim_commentmode = 1
+" }
+
+" Airline setup {
+    let g:airline_powerline_fonts=1
+    let g:airline_theme = 'solarized'
+    let g:airline_left_sep='›'  " Slightly fancier than '>'"
+    let g:airline_right_sep='‹' " Slightly fancier than '<'"
+" }
+
 " perl folding {
     let perl_fold = 1
     let perl_fold_blocks = 1
