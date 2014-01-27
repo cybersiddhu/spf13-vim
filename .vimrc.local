@@ -72,6 +72,10 @@ let g:tagbar_type_go = {
        \]
    \}
 " }
+" golang neocomplcache support {
+    let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
+" }
+
 
 " perl omni setting {
    let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
