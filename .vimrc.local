@@ -19,10 +19,6 @@ UnBundle 'pythoncomplete'
 
 set nocursorline
 
-" location for vimswap and other files {
-    let g:spf13_consolidated_directory = $VIMDIR . '/backups'
-" }
-
 " The " character will not be paired for vim config files {
     let g:autoclose_vim_commentmode = 1
 " }
@@ -71,37 +67,37 @@ set nocursorline
 " }
 
 " golang tagbar support {
-let g:tagbar_type_go = {
-    \ 'ctagstype': 'go',
-        \ 'kinds' : [
-            \'p:package',
-            \'f:function',
-            \'v:variables',
-            \'t:types',
-            \'c:constants',
-            \'n:interfaes',
-            \'i:imports:1',
-            \'w:fields',
-            \'e:embeded',
-            \'m:methods',
-            \'r:constructors',
-            \'f:functions'
-       \],
-       \'sro' : '.',
-       \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-        \},
-        \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-   \}
+"let g:tagbar_type_go = {
+    "\ 'ctagstype': 'go',
+        "\ 'kinds' : [
+            "\'p:package',
+            "\'f:function',
+            "\'v:variables',
+            "\'t:types',
+            "\'c:constants',
+            "\'n:interfaes',
+            "\'i:imports:1',
+            "\'w:fields',
+            "\'e:embeded',
+            "\'m:methods',
+            "\'r:constructors',
+            "\'f:functions'
+       "\],
+       "\'sro' : '.',
+       "\ 'kind2scope' : {
+        "\ 't' : 'ctype',
+        "\ 'n' : 'ntype'
+        "\},
+        "\ 'scope2kind' : {
+        "\ 'ctype' : 't',
+        "\ 'ntype' : 'n'
+    "\ },
+    "\ 'ctagsbin'  : 'gotags',
+    "\ 'ctagsargs' : '-sort -silent'
+   "\}
 " }
 " golang neocomplcache support {
-    let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
+    "let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
 " }
 
 
