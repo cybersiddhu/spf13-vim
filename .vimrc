@@ -552,13 +552,6 @@
             \ }
     "}
 
-    " PythonMode {
-        " Disable if python support not present
-        "if !has('python')
-            "let g:pymode = 0
-        "endif
-    " }
-
     " Fugitive {
         nnoremap <silent> <leader>gs :Gstatus<CR>
         nnoremap <silent> <leader>gd :Gdiff<CR>
