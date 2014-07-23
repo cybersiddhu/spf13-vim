@@ -24,10 +24,10 @@ set nocursorline
 " }
 
 " Airline setup {
-    let g:airline_powerline_fonts=1
+    let g:airline_powerline_fonts=0
     let g:airline_theme = 'solarized'
-    let g:airline_left_sep='›'  " Slightly fancier than '>'"
-    let g:airline_right_sep='‹' " Slightly fancier than '<'"
+    let g:airline_left_sep='»'  " Slightly fancier than '>'"
+    let g:airline_right_sep='«' " Slightly fancier than '<'"
 " }
 
 " perl folding {
