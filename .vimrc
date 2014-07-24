@@ -256,7 +256,8 @@
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
     autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
-    autocmd FileType go autocmd BufWritePre <buffer> Fmt
+    "autocmd FileType go autocmd BufWritePre <buffer> Fmt
+    "       \ '}
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
     autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2
     " preceding line best in a plugin but here for now.

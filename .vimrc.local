@@ -101,6 +101,10 @@ set nocursorline
 " }
 
 " custom settings from vim-go pluin {
+"  remove syntastic checking for golang 
+     let g:syntastic_mode_map = { 'mode': 'active',
+   \ 'active_filetypes': [],
+       \ 'passive_filetypes': ['html'] }
     let g:go_snippet_engine = "neosnippet"
 " }
 
