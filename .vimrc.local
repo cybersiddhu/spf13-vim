@@ -101,7 +101,6 @@ set nocursorline
 " }
 
 " custom settings from vim-go pluin {
-"  remove syntastic checking for golang 
      let g:syntastic_mode_map = { 'mode': 'active',
    \ 'active_filetypes': [],
        \ 'passive_filetypes': ['html'] }
@@ -116,8 +115,8 @@ set nocursorline
     au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 " Run commands, such as go run with <leader>r for the current file or go build
 " and go test for the current package with <leader>b and <leader>t
-    au FileType go nmap <leader>r <Plug>(go-run)
-    au FileType go nmap <leader>b <Plug>(go-build)
+    au FileType go nmap <leader>r :GoRun %<CR>
+    au FileType go nmap <Leader>i <Plug>(go-info)
     au FileType go nmap <leader>t <Plug>(go-test)
 " Replace gd (Goto Declaration) for the word under your cursor (replaces
 " current buffer)
