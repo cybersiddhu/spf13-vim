@@ -103,7 +103,7 @@ set nocursorline
 " custom settings from vim-go pluin {
      let g:syntastic_mode_map = { 'mode': 'active',
    \ 'active_filetypes': [],
-       \ 'passive_filetypes': ['html'] }
+       \ 'passive_filetypes': ['go'] }
     let g:go_snippet_engine = "neosnippet"
 " }
 
