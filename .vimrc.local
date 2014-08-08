@@ -1,0 +1,134 @@
+UnBundle 'kchmck/vim-coffee-script'
+UnBundle 'tpope/vim-cucumber'
+UnBundle 'quentindecock/vim-cucumber-align-pipes'
+UnBundle 'godlygeek/csapprox'
+UnBundle 'spf13/vim-gocode'
+UnBundle 'pythoncomplete'
+
+" Custom solarized setup {
+    let solarizeddir = $MYBUNDLE . '/vim-colors-solarized'
+    if isdirectory(solarizeddir)
+        set t_Co=256
+        let g:solarized_contrast="normal"    "default value is normal
+        let g:solarized_visibility="normal"    "default value is normal
+        let g:solarized_termcolors=16
+        set background=dark
+        color solarized
+    endif
+" }
+
+set nocursorline
+
+" The " character will not be paired for vim config files {
+    let g:autoclose_vim_commentmode = 1
+" }
+
+" Airline setup {
+    let g:airline_powerline_fonts=0
+    let g:airline_theme = 'solarized'
+    let g:airline_left_sep='»'  " Slightly fancier than '>'"
+    let g:airline_right_sep='«' " Slightly fancier than '<'"
+" }
+
+" perl folding {
+    let perl_fold = 1
+    let perl_fold_blocks = 1
+" }
+
+" mapping perltidy {
+    au FileType perl imap <Leader>pt <Esc>:%!perltidy -q<CR>
+    au FileType perl nmap <Leader>pt :%!perltidy -q<CR>
+" }
+
+
+" Extra  Fugitive {
+    nnoremap <silent> <Leader>ga :Gwrite<CR>
+" }
+
+" Personal keybindings {
+    imap <silent> <Leader>w <Esc>:write<CR>
+    nmap <silent> <Leader>w :write<CR>
+" }
+
+" Session settings {
+   let  sessionman_save_on_exit=1
+" }
+
+" Syntastic plugin {
+    let g:syntastic_perl_lib_path = './lib'
+"}
+
+" golang vim support {
+"    filetype off
+"    filetype plugin indent off
+"    set rtp+=/usr/share/vim/addons
+"    filetype plugin indent on
+"    syntax on
+" }
+
+" golang tagbar support {
+"let g:tagbar_type_go = {
+    "\ 'ctagstype': 'go',
+        "\ 'kinds' : [
+            "\'p:package',
+            "\'f:function',
+            "\'v:variables',
+            "\'t:types',
+            "\'c:constants',
+            "\'n:interfaes',
+            "\'i:imports:1',
+            "\'w:fields',
+            "\'e:embeded',
+            "\'m:methods',
+            "\'r:constructors',
+            "\'f:functions'
+       "\],
+       "\'sro' : '.',
+       "\ 'kind2scope' : {
+        "\ 't' : 'ctype',
+        "\ 'n' : 'ntype'
+        "\},
+        "\ 'scope2kind' : {
+        "\ 'ctype' : 't',
+        "\ 'ntype' : 'n'
+    "\ },
+    "\ 'ctagsbin'  : 'gotags',
+    "\ 'ctagsargs' : '-sort -silent'
+   "\}
+" }
+" golang neocomplcache support {
+    "let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
+" }
+
+" custom settings from vim-go pluin {
+     let g:syntastic_mode_map = { 'mode': 'active',
+   \ 'active_filetypes': [],
+       \ 'passive_filetypes': ['go'] }
+    let g:go_snippet_engine = "neosnippet"
+" }
+
+" custom golang mapping from vim-go plugin {
+" Show type info for the word under your cursor with <leader>i
+    au FileType go nmap <Leader>i <Plug>(go-info)
+" Open the relevant Godoc for the word under the cursor with <leader>gd
+    au FileType go nmap <Leader>gd <Plug>(go-doc)
+    au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+" Run commands, such as go run with <leader>r for the current file or go build
+" and go test for the current package with <leader>b and <leader>t
+    au FileType go nmap <leader>r :GoRun %<CR>
+    au FileType go nmap <Leader>i <Plug>(go-info)
+    au FileType go nmap <leader>t <Plug>(go-test)
+" Replace gd (Goto Declaration) for the word under your cursor (replaces
+" current buffer)
+    au FileType go nmap gd <Plug>(go-def)
+" open the definition/declaration in a new vertical, horizontal or tab for the
+" word under your cursor
+    au FileType go nmap <Leader>ds <Plug>(go-def-split)
+    au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+    au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+" }
+
+
+" perl omni setting {
+   "let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+" }
