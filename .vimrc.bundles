@@ -14,6 +14,24 @@
 "
 "   You can find me at http://spf13.com
 " }
+"
+" Environment {
+    " Setup Bundle Support {
+        filetype off
+        set rtp+=$MYVUNDLE
+        call vundle#rc($MYBUNDLE)
+    " }
+
+    " UnBundle {
+    function! UnBundle(arg, ...)
+      let bundle = vundle#config#init_bundle(a:arg, a:000)
+      call filter(g:bundles, 'v:val["name_spec"] != "' . a:arg . '"')
+    endfunction
+
+    com! -nargs=+         UnBundle
+    \ call UnBundle(<args>)
+    " }
+" }
 
 " Bundles {
 
