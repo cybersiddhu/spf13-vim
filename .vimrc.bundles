@@ -36,7 +36,7 @@
 " Plugins {
 
     " Deps {
-        Plugin 'gmarik/vundle'
+        Plugin 'gmarik/Vundle.vim'
         Plugin 'MarcWeber/vim-addon-mw-utils'
         Plugin 'tomtom/tlib_vim'
         if executable('ack-grep')
@@ -53,7 +53,7 @@
     " In your .vimrc.bundles.local file"
     " list only the plugin groups you will use
     if !exists('g:spf13_bundle_groups')
-        let g:spf13_bundle_groups=['general', 'neocomplcache', 'programming', 'php', 'ruby', 'python', 'go', 'twig', 'javascript', 'haskell', 'html', 'misc', 'scala']
+        let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc']
     endif
 
     " To override all the included bundles, put
@@ -61,12 +61,13 @@
     " in your .vimrc.bundles.local file"
     if !exists("g:override_spf13_bundles")
 
-    " General
+    " General {
         if count(g:spf13_bundle_groups, 'general')
             Plugin 'scrooloose/nerdtree'
             Plugin 'altercation/vim-colors-solarized'
             Plugin 'spf13/vim-colors'
             Plugin 'tpope/vim-surround'
+            Plugin 'tpope/vim-repeat'
             Plugin 'spf13/vim-autoclose'
             Plugin 'kien/ctrlp.vim'
             Plugin 'terryma/vim-multiple-cursors'
@@ -80,8 +81,8 @@
                 Plugin 'bling/vim-airline'
             endif
 
+            Plugin 'bling/vim-bufferline'
             Plugin 'Lokaltog/vim-easymotion'
-            Plugin 'godlygeek/csapprox'
             Plugin 'jistr/vim-nerdtree-tabs'
             Plugin 'flazz/vim-colorschemes'
             Plugin 'mbbill/undotree'
@@ -90,11 +91,25 @@
             if !exists('g:spf13_no_views')
                 Plugin 'vim-scripts/restore_view.vim'
             endif
-            Plugin 'airblade/vim-gitgutter'
+            Plugin 'mhinz/vim-signify'
             Plugin 'tpope/vim-abolish.git'
+            Plugin 'osyo-manga/vim-over'
+            Plugin 'kana/vim-textobj-user'
+            Plugin 'kana/vim-textobj-indent'
+            Plugin 'gcmt/wildfire.vim'
         endif
+    " }
 
-    " General Programming
+    " Writing {
+        if count(g:spf13_bundle_groups, 'writing')
+            Plugin 'reedes/vim-litecorrect'
+            Plugin 'reedes/vim-textobj-sentence'
+            Plugin 'reedes/vim-textobj-quote'
+            Plugin 'reedes/vim-wordy'
+        endif
+    " }
+    
+    " General Programming {
         if count(g:spf13_bundle_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
             Plugin 'scrooloose/syntastic'
@@ -102,13 +117,15 @@
             Plugin 'mattn/webapi-vim'
             Plugin 'mattn/gist-vim'
             Plugin 'scrooloose/nerdcommenter'
+            Plugin 'tpope/vim-commentary'
             Plugin 'godlygeek/tabular'
             if executable('ctags')
                 Plugin 'majutsushi/tagbar'
             endif
         endif
+    " }
 
-    " Snippets & AutoComplete
+    " Snippets & AutoComplete {
         if count(g:spf13_bundle_groups, 'snipmate')
             Plugin 'garbas/vim-snipmate'
             Plugin 'honza/vim-snippets'
@@ -117,23 +134,31 @@
                 let $MYSNIPF=$MYBUNDLE . "/vim-snippets/snippets/support_functions.vim"
                 source $MYSNIPF
             endif
+        elseif count(g:spf13_bundle_groups, 'youcompleteme')
+            Plugin 'Valloric/YouCompleteMe'
+            Plugin 'SirVer/ultisnips'
+            Plugin 'honza/vim-snippets'
         elseif count(g:spf13_bundle_groups, 'neocomplcache')
             Plugin 'Shougo/neocomplcache'
             Plugin 'Shougo/neosnippet'
+            Plugin 'Shougo/neosnippet-snippets'
             Plugin 'honza/vim-snippets'
         elseif count(g:spf13_bundle_groups, 'neocomplete')
             Plugin 'Shougo/neocomplete.vim.git'
             Plugin 'Shougo/neosnippet'
+            Plugin 'Shougo/neosnippet-snippets'
             Plugin 'honza/vim-snippets'
         endif
+    " }
 
-    " PHP
+    " PHP {
         if count(g:spf13_bundle_groups, 'php')
             Plugin 'spf13/PIV'
             Plugin 'arnaud-lb/vim-php-namespace'
         endif
+    " }
 
-    " Python
+    " Python {
         if count(g:spf13_bundle_groups, 'python')
             Plugin 'python.vim'
             Plugin 'python_match.vim'
@@ -144,8 +169,9 @@
             "Plugin 'klen/python-mode'
             "Plugin 'pythoncomplete'
         endif
+    " }
 
-    " Javascript
+    " Javascript {
         if count(g:spf13_bundle_groups, 'javascript')
             Plugin 'elzr/vim-json'
             Plugin 'groenewege/vim-less'
@@ -153,18 +179,22 @@
             Plugin 'briancollins/vim-jst'
             Plugin 'kchmck/vim-coffee-script'
         endif
+    " }
 
-    " Java
+    " Scala/Java {
         if count(g:spf13_bundle_groups, 'scala')
             Plugin 'derekwyatt/vim-scala'
             Plugin 'derekwyatt/vim-sbt'
+            Plugin 'xptemplate'
         endif
+    " }
 
-    " Haskell
+    " Haskell {
         if count(g:spf13_bundle_groups, 'haskell')
             Plugin 'travitch/hasksyn'
             Plugin 'dag/vim2hs'
             Plugin 'Twinside/vim-haskellConceal'
+            Plugin 'Twinside/vim-haskellFold'
             Plugin 'lukerandall/haskellmode-vim'
             Plugin 'ujihisa/neco-ghc'
             Plugin 'eagletmt/ghcmod-vim'
@@ -172,41 +202,45 @@
             Plugin 'adinapoli/cumino'
             Plugin 'bitc/vim-hdevtools'
         endif
+    " }
 
-    " HTML
+    " HTML {
         if count(g:spf13_bundle_groups, 'html')
             Plugin 'amirh/HTML-AutoCloseTag'
             Plugin 'hail2u/vim-css3-syntax'
+            Plugin 'gorodinskiy/vim-coloresque'
             Plugin 'tpope/vim-haml'
         endif
+    " }
 
-    " Ruby
+    " Ruby {
         if count(g:spf13_bundle_groups, 'ruby')
             Plugin 'tpope/vim-rails'
             let g:rubycomplete_buffer_loading = 1
             "let g:rubycomplete_classes_in_global = 1
             "let g:rubycomplete_rails = 1
         endif
+    " }
 
-    " Go Lang
+    " Go Lang {
         if count(g:spf13_bundle_groups, 'go')
             Plugin 'fatih/vim-go'
         endif
+    " }
 
-    " Misc
+    " Misc {
         if count(g:spf13_bundle_groups, 'misc')
             Plugin 'tpope/vim-markdown'
             Plugin 'spf13/vim-preview'
+            Plugin 'cespare/vim-toml'
             Plugin 'tpope/vim-cucumber'
             Plugin 'quentindecock/vim-cucumber-align-pipes'
             Plugin 'Puppet-Syntax-Highlighting'
         endif
+    " }
 
-    " Twig
-        if count(g:spf13_bundle_groups, 'twig')
-            Plugin 'beyondwords/vim-twig'
-        endif
     endif
+    call vundle#end()
 
 " }
 
