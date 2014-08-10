@@ -15,26 +15,25 @@
 "   You can find me at http://spf13.com
 " }
 "
-"
-"
 " Basics {
         set nocompatible        " Must be first line
 " }
 "
 " Custom vim configuration path {
     if exists('$VIMDIR')
-        let $MYVUNDLE=$VIMDIR.'/bundle/vundle'
+        let $MYVUNDLE=$VIMDIR.'/bundle/Vundle.vim'
         let $MYBUNDLE=$VIMDIR.'/bundle'
     else
         let $VIMDIR=$HOME
-        let $MYVUNDLE=$VIMDIR.'/.vim/bundle/vundle'
+        let $MYVUNDLE=$VIMDIR.'/.vim/bundle/Vundle.vim'
         let $MYBUNDLE=$VIMDIR.'/.vim/bundle'
     endif
 
 " }
 
 " Before {
-"
+
+    " spf13 specific global vim options with their default values
     " Use before config if available {
         if filereadable(expand($VIMDIR ."/.vimrc.before"))
             let $MYB = $VIMDIR. '/.vimrc.before'
@@ -42,6 +41,8 @@
         endif
     " }
     "
+    " list of user specific global vim options, for custom vim profiles
+    " Come with default values
     " Use before fork if available {
         if filereadable(expand($VIMDIR ."/.vimrc.before.fork"))
             let $MYBF = $VIMDIR. '/.vimrc.before.fork'
@@ -49,6 +50,8 @@
         endif
     " }
 
+    " Place to override the default values of options given in any of the
+    " above two before files
     " Use local before if available {
         if filereadable(expand($VIMDIR ."/.vimrc.before.local"))
             let $MYBL = $VIMDIR. '/.vimrc.before.local'
@@ -62,7 +65,7 @@
             source $MYB
         endif
     " }
-    "
+    
     " Use fork bundles if available {
         if filereadable(expand($VIMDIR . "/.vimrc.bundles.fork"))
             let $MYBF = $VIMDIR. '/.vimrc.bundles.fork'
@@ -70,6 +73,7 @@
         endif
 
     " }
+    
     " Use local bundles if available {
         if filereadable(expand($VIMDIR . "/.vimrc.bundles.local"))
             let $MYBUL = $VIMDIR. '/.vimrc.bundles.local'
@@ -446,7 +450,7 @@
             augroup END
         endif
     " }
-    
+
     " TextObj Quote {
         if count(g:spf13_bundle_groups, 'writing')
             augroup textobj_quote
@@ -760,6 +764,49 @@
             let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
     " }
 
+    " Normal Vim omni-completion {
+    " To disable omni complete, add the following to your .vimrc.before.local file:
+    "   let g:spf13_no_omni_complete = 1
+        elseif !exists('g:spf13_no_omni_complete')
+            " Enable omni-completion.
+            autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+            autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+            autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+            autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+        endif
+    " }
+    
+    " Snippets {
+        if count(g:spf13_bundle_groups, 'neocomplcache') ||
+                    \ count(g:spf13_bundle_groups, 'neocomplete')
+
+            " Use honza's snippets.
+            let g:neosnippet#snippets_directory=$MYBUNDLE.'/vim-snippets/snippets'
+
+            " Enable neosnippet snipmate compatibility mode
+            let g:neosnippet#enable_snipmate_compatibility = 1
+
+            " For snippet_complete marker.
+            if !exists("g:spf13_no_conceal")
+                if has('conceal')
+                    set conceallevel=2 concealcursor=i
+                endif
+            endif
+
+            " Enable neosnippets when using go
+            let g:go_snippet_engine = "neosnippet"
+
+            " Disable the neosnippet preview candidate window
+            " When enabled, there can be too much visual noise
+            " especially when splits are used.
+            set completeopt-=preview
+        endif
+    " }
+
     " UndoTree {
         if isdirectory(expand($MYBUNDLE,'/undotree'))
             nnoremap <Leader>u :UndotreeToggle<CR>
@@ -783,6 +830,30 @@
         endif
     " }
 
+    " vim-airline {
+        " Set configuration options for the statusline plugin vim-airline.
+        " Use the powerline theme and optionally enable powerline symbols.
+        " To use the symbols , , , , , , and .in the statusline
+        " segments add the following to your .vimrc.before.local file:
+        "   let g:airline_powerline_fonts=1
+        " If the previous symbols do not render for you then install a
+        " powerline enabled font.
+
+        " See `:echo g:airline_theme_map` for some more choices
+        " Default in terminal vim is 'dark'
+        if isdirectory(expand($MYBUNDLE."/vim-airline/"))
+            if !exists('g:airline_theme')
+                let g:airline_theme = 'solarized'
+            endif
+            if !exists('g:airline_powerline_fonts')
+                " Use the default set of separators with a few customizations
+                let g:airline_left_sep='›'  " Slightly fancier than '>'
+                let g:airline_right_sep='‹' " Slightly fancier than '<'
+            endif
+        endif
+    " }
+" }
+    
 " GUI Settings {
 	" GVIM- (here instead of .gvimrc)
 	if has('gui_running')
@@ -798,78 +869,103 @@
 	endif
 " }
 
-function! InitializeDirectories()
-  let separator = "."
-  let parent = $HOME 
-  let prefix = '.vim'
-  let dir_list = { 
-			  \ 'backup': 'backupdir', 
-			  \ 'views': 'viewdir', 
-			  \ 'swap': 'directory', 
-			  \ 'undo': 'undodir' }
+" Functions {
 
-  for [dirname, settingname] in items(dir_list)
-	  let directory = parent . '/' . prefix . dirname . "/"
-	  if exists("*mkdir")
-		  if !isdirectory(directory)
-			  call mkdir(directory)
-		  endif
-	  endif
-	  if !isdirectory(directory)
-		  echo "Warning: Unable to create backup directory: " . directory
-		  echo "Try: mkdir -p " . directory
-	  else  
-          let directory = substitute(directory, " ", "\\\\ ", "")
-          exec "set " . settingname . "=" . directory
-	  endif
-  endfor
-endfunction
-call InitializeDirectories() 
+    " Initialize directories {
+    function! InitializeDirectories()
+        let parent = $HOME
+        let prefix = 'vim'
+        let dir_list = {
+                    \ 'backup': 'backupdir',
+                    \ 'views': 'viewdir',
+                    \ 'swap': 'directory' }
 
-function! NERDTreeInitAsNeeded()
-    redir => bufoutput
-    buffers!
-    redir END
-    let idx = stridx(bufoutput, "NERD_tree")
-    if idx > -1
-        NERDTreeMirror
-        NERDTreeFind
-        wincmd l
-    endif
-endfunction
+        if has('persistent_undo')
+            let dir_list['undo'] = 'undodir'
+        endif
 
-" Strip whitespace
-function! StripTrailingWhitespace()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " " do the business:
-    %s/\s\+$//e
-    " " clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
+        " To specify a different directory in which to place the vimbackup,
+        " vimviews, vimundo, and vimswap files/directories, add the following to
+        " your .vimrc.before.local file:
+        "   let g:spf13_consolidated_directory = <full path to desired directory>
+        "   eg: let g:spf13_consolidated_directory = $HOME . '/.vim/'
+        if exists('g:spf13_consolidated_directory')
+            let common_dir = g:spf13_consolidated_directory . prefix
+        else
+            let common_dir = parent . '/.' . prefix
+        endif
 
-" Shell command
-function! s:RunShellCommand(cmdline)
-    botright new
-    setlocal buftype=nofile
-    setlocal bufhidden=delete
-    setlocal nobuflisted
-    setlocal noswapfile
-    setlocal nowrap
-    setlocal filetype=shell
-    setlocal syntax=shell
-    call setline(1, a:cmdline)
-    call setline(2, substitute(a:cmdline, '.', '=', 'g'))
-    execute 'silent $read !' . escape(a:cmdline, '%#')
-    setlocal nomodifiable
-    1
-endfunction
+        for [dirname, settingname] in items(dir_list)
+            let directory = common_dir . dirname . '/'
+            if exists("*mkdir")
+                if !isdirectory(directory)
+                    call mkdir(directory)
+                endif
+            endif
+            if !isdirectory(directory)
+                echo "Warning: Unable to create backup directory: " . directory
+                echo "Try: mkdir -p " . directory
+            else
+                let directory = substitute(directory, " ", "\\\\ ", "g")
+                exec "set " . settingname . "=" . directory
+            endif
+        endfor
+    endfunction
+    call InitializeDirectories()
+    " }
 
-command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
-" e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
+    " Initialize NERDTree as needed {
+    function! NERDTreeInitAsNeeded()
+        redir => bufoutput
+        buffers!
+        redir END
+        let idx = stridx(bufoutput, "NERD_tree")
+        if idx > -1
+            NERDTreeMirror
+            NERDTreeFind
+            wincmd l
+        endif
+    endfunction
+    " }
+
+    " Strip whitespace {
+    function! StripTrailingWhitespace()
+        " Preparation: save last search, and cursor position.
+        let _s=@/
+        let l = line(".")
+        let c = col(".")
+        " do the business:
+        %s/\s\+$//e
+        " clean up: restore previous search history, and cursor position
+        let @/=_s
+        call cursor(l, c)
+    endfunction
+    " }
+
+    " Shell command {
+    function! s:RunShellCommand(cmdline)
+        botright new
+
+        setlocal buftype=nofile
+        setlocal bufhidden=delete
+        setlocal nobuflisted
+        setlocal noswapfile
+        setlocal nowrap
+        setlocal filetype=shell
+        setlocal syntax=shell
+
+        call setline(1, a:cmdline)
+        call setline(2, substitute(a:cmdline, '.', '=', 'g'))
+        execute 'silent $read !' . escape(a:cmdline, '%#')
+        setlocal nomodifiable
+        1
+    endfunction
+
+    command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
+    " e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
+    " }
+
+" }
 
 " Use fork vimrc if available {
     if filereadable(expand($VIMDIR. "/.vimrc.fork"))
