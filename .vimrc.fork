@@ -1,0 +1,43 @@
+" Custom solarized setup {
+    if isdirectory(expand($MYBUNDLE. "/vim-colors-solarized"))
+        let solarizeddir = $MYBUNDLE . '/vim-colors-solarized'
+        set t_Co=256
+        let g:solarized_contrast="normal"    "default value is normal
+        let g:solarized_visibility="normal"    "default value is normal
+        let g:solarized_termcolors=16
+        set background=dark
+        color solarized
+    endif
+" }
+
+set nocursorline
+
+" The " character will not be paired for vim config files {
+    let g:autoclose_vim_commentmode = 1
+" }
+
+" Airline setup {
+    if isdirectory(expand($MYBUNDLE."/vim-airline/"))
+        let g:airline_powerline_fonts=0
+        let g:airline_left_sep='»'  " Slightly fancier than '>'"
+        let g:airline_right_sep='«' " Slightly fancier than '<'"
+    endif
+" }
+
+" Extra  Fugitive {
+    if isdirectory(expand($MYBUNDLE.'/vim-fugitive'))
+        nnoremap <silent> <Leader>ga :Gwrite<CR>
+    endif
+" }
+
+" Personal keybindings {
+    imap <silent> <Leader>w <Esc>:write<CR>
+    nmap <silent> <Leader>w :write<CR>
+" }
+
+" Session settings {
+    if isdirectory(expand($MYBUNDLE."/sessionman.vim"))
+        let  sessionman_save_on_exit=1
+    endif
+" }
+
