@@ -1,0 +1,3 @@
+" Sidds bundle group options {
+"   let g:sidds_bundle_groups=['misc']
+" }
