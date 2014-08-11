@@ -1,0 +1,6 @@
+" Sidds Misc {
+    if count(g:sidds_bundle_groups, 'misc')
+            Plugin 'tpope/vim-markdown'
+            Plugin 'spf13/vim-preview'
+    endif
+" }
