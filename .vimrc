@@ -641,6 +641,7 @@
                 \ 'ctagsbin'  : 'gotags',
                 \ 'ctagsargs' : '-sort -silent'
                 \ }
+        endif
     "}
 
     " Fugitive {
@@ -993,5 +994,5 @@
    if filereadable(expand($VIMDIR. "/.vimrc.local"))
        let $MYL = $VIMDIR. '/.vimrc.local'
        source $MYL
-    endif
+   endif
 " }
