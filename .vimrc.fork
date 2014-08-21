@@ -43,7 +43,7 @@ set nocursorline
 
 " Remap ultisnips keybindings to avoid conflict with YouCompleteMe {
     if isdirectory(expand($MYBUNDLE."/YouCompleteMe"))
-        if isdirectory(expand($MYBUNDLE."/ultisnips")
+        if isdirectory(expand($MYBUNDLE."/ultisnips"))
             let g:UltiSnipsExpandTrigger="<c-k>"
             let g:UltiSnipsJumpForwardTrigger="<c-j>"
             let g:UltiSnipsJumpBackwardTrigger="<c-k>"
