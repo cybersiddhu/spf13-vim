@@ -3,4 +3,15 @@
             Plugin 'tpope/vim-markdown'
             Plugin 'spf13/vim-preview'
     endif
+
+    if count(g:sidds_bundle_groups, 'youcompletesnip')
+        Plugin 'Valloric/YouCompleteMe'
+        Plugin 'garbas/vim-snipmate'
+        Plugin 'honza/vim-snippets'
+
+        if filereadable(expand($MYBUNDLE."/vim-snippets/snippets/support_functions.vim"))
+            let $MYSNIPF=$MYBUNDLE . "/vim-snippets/snippets/support_functions.vim"
+            source $MYSNIPF
+        endif
+    endif
 " }
