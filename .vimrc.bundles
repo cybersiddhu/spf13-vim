@@ -64,8 +64,7 @@
     " General {
         if count(g:spf13_bundle_groups, 'general')
             Plugin 'scrooloose/nerdtree'
-            Plugin 'altercation/vim-colors-solarized'
-            Plugin 'spf13/vim-colors'
+            Plugin 'morhetz/gruvbox'
             Plugin 'tpope/vim-surround'
             Plugin 'tpope/vim-repeat'
             Plugin 'spf13/vim-autoclose'
