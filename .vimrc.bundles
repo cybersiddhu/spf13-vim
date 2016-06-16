@@ -78,7 +78,8 @@
             elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
                 Plugin 'Lokaltog/vim-powerline'
             else
-                Plugin 'bling/vim-airline'
+                Plugin 'vim-airline/vim-airline'
+                Plugin 'vim-airline/vim-airline-themes'
             endif
 
             Plugin 'bling/vim-bufferline'
