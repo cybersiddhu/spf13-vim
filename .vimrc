@@ -174,12 +174,11 @@
 
 " Vim UI {
 
-    if filereadable(expand($MYBUNDLE. "/vim-colors-solarized/colors/solarized.vim"))
-        let g:solarized_termcolors=256
-        let g:solarized_termtrans=1
-        let g:solarized_contrast="high"
-        let g:solarized_visibility="high"
-        color solarized             " Load a colorscheme
+    if filereadable(expand($MYBUNDLE. "/gruvbox/autoload/gruvbox.vim"))
+        set background=dark
+        let g:gruvbox_contrast_dark="soft"
+        let g:gruvbox_italic=1
+        colorscheme gruvbox
     endif
 
     set tabpagemax=15               " Only show 15 tabs
