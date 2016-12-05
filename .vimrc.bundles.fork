@@ -14,4 +14,10 @@
             source $MYSNIPF
         endif
     endif
+
+    if count(g:sidds_bundle_groups, 'ycultisnip')
+        Plugin 'Valloric/YouCompleteMe'
+        Plugin 'SirVer/ultisnips'
+        Plugin 'honza/vim-snippets'
+    endif
 " }
