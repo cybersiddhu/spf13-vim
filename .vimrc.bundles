@@ -177,8 +177,6 @@
             Plugin 'elzr/vim-json'
             Plugin 'groenewege/vim-less'
             Plugin 'pangloss/vim-javascript'
-            Plugin 'briancollins/vim-jst'
-            Plugin 'kchmck/vim-coffee-script'
         endif
     " }
 
