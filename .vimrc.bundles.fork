@@ -15,7 +15,7 @@
         endif
     endif
 
-    if count(g:sidds_bundle_groups, 'ycultisnip')
+    if count(g:sidds_bundle_groups, 'ycmultisnip')
         Plugin 'Valloric/YouCompleteMe'
         Plugin 'SirVer/ultisnips'
         Plugin 'honza/vim-snippets'
