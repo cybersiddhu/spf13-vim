@@ -224,6 +224,7 @@
     " Go Lang {
         if count(g:spf13_bundle_groups, 'go')
             Plugin 'fatih/vim-go'
+            Plugin 'AndrewRadev/splitjoin.vim'
         endif
     " }
 
