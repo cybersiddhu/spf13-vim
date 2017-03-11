@@ -32,7 +32,7 @@
 " }
 
 " Before {
-
+"
     " spf13 specific global vim options with their default values
     " Use before config if available {
         if filereadable(expand($VIMDIR ."/.vimrc.before"))
@@ -41,17 +41,6 @@
         endif
     " }
     "
-    " User specific global vim options that are new and not present in the
-    " default spf13 distribution. Useful if you fork the default spf13
-    " repository.
-    " Should be set to their default values
-    " Use before fork if available {
-        if filereadable(expand($VIMDIR ."/.vimrc.before.fork"))
-            let $MYBF = $VIMDIR. '/.vimrc.before.fork'
-            source $MYBF
-        endif
-    " }
-
     " Place to override the default values of options given in any of the
     " above two before files.
     " Also, place to set the value of various options that are used downstream
@@ -62,7 +51,7 @@
             source $MYBL
         endif
     " }
-    
+    "
     " Check to see the various options that could be overridden. 
     " Use bundles config. {
         if filereadable(expand($VIMDIR . "/.vimrc.bundles"))
@@ -70,19 +59,9 @@
             source $MYB
         endif
     " }
-    
-    " Particularly for your own fork of the spf13 repository to change the way
-    " logic works in the .vimrc.bundles file.
-    " Use fork bundles if available {
-        if filereadable(expand($VIMDIR . "/.vimrc.bundles.fork"))
-            let $MYBF = $VIMDIR. '/.vimrc.bundles.fork'
-            source $MYBF
-        endif
-
-    " }
-    
     " Useful for adding custom bundle or any other bundle related options that
     " cannot be fit into other files.
+    "
     " Use local bundles if available {
         if filereadable(expand($VIMDIR . "/.vimrc.bundles.local"))
             let $MYBUL = $VIMDIR. '/.vimrc.bundles.local'
@@ -976,16 +955,7 @@
     " }
 
 " }
-
-
-" For your own fork of spf13 to change the default behaviour of .vimrc
-" Use fork vimrc if available {
-    if filereadable(expand($VIMDIR. "/.vimrc.fork"))
-        let $MYF = $VIMDIR. '/.vimrc.fork'
-        source $MYF
-    endif
-" }
-
+"
 " Override or add new configuration for .vimrc
 " Also a place to deactivate default bundles. It cannot be done in
 " .vimrc.bundles.local because the default .vimrc might set options in them
