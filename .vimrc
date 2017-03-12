@@ -448,7 +448,9 @@
         endif
     " }
 
-    " OmniComplete {
+    " Normal Vim omni-completion {
+    " To disable omni complete, add the following to your .vimrc.before.local file:
+    "   let g:spf13_no_omni_complete = 1
         if !exists('g:spf13_no_omni_complete')
             if has("autocmd") && exists("+omnifunc")
                 autocmd Filetype *
@@ -472,23 +474,10 @@
         " Automatically open and close the popup menu / preview window
             au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
             set completeopt=menu,preview,longest
+
+            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
         endif
-    " }
-
-    " Ctags {
-        "set tags=./tags;/,~/.vimtags
-
-        "" Make tags placed in .git/tags file available in all levels of a repository
-        "let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
-        "if gitroot != ''
-            "let &tags = &tags . ',' . gitroot . '/.git/tags'
-        "endif
-    " }
-
-    " AutoCloseTag {
-        " Make it so AutoCloseTag works for xml and xhtml files as well
-        au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-        nmap <Leader>ac <Plug>ToggleAutoCloseMappings
     " }
 
 	" SnipMate {
@@ -742,49 +731,6 @@
             let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
     " }
 
-    " Normal Vim omni-completion {
-    " To disable omni complete, add the following to your .vimrc.before.local file:
-    "   let g:spf13_no_omni_complete = 1
-        elseif !exists('g:spf13_no_omni_complete')
-            " Enable omni-completion.
-            autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-            autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-            autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-            autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-        endif
-    " }
-    
-    " Snippets {
-        if count(g:spf13_bundle_groups, 'neocomplcache') ||
-                    \ count(g:spf13_bundle_groups, 'neocomplete')
-
-            " Use honza's snippets.
-            let g:neosnippet#snippets_directory=$MYBUNDLE.'/vim-snippets/snippets'
-
-            " Enable neosnippet snipmate compatibility mode
-            let g:neosnippet#enable_snipmate_compatibility = 1
-
-            " For snippet_complete marker.
-            if !exists("g:spf13_no_conceal")
-                if has('conceal')
-                    set conceallevel=2 concealcursor=i
-                endif
-            endif
-
-            " Enable neosnippets when using go
-            let g:go_snippet_engine = "neosnippet"
-
-            " Disable the neosnippet preview candidate window
-            " When enabled, there can be too much visual noise
-            " especially when splits are used.
-            set completeopt-=preview
-        endif
-    " }
-
     " UndoTree {
         if isdirectory(expand($MYBUNDLE,'/undotree'))
             nnoremap <Leader>u :UndotreeToggle<CR>
@@ -794,13 +740,6 @@
     " }
 
     " indent_guides {
-        "if !exists('g:spf13_no_indent_guides_autocolor')
-            "let g:indent_guides_auto_colors = 1
-        "else
-            "" For some colorschemes, autocolor will not work (eg: 'desert', 'ir_black')
-            "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#212121 ctermbg=3
-            "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#404040 ctermbg=4
-        "endif
         if isdirectory(expand($MYBUNDLE,'/vim-indent-guides'))
             let g:indent_guides_start_level = 2
             let g:indent_guides_guide_size = 1
@@ -832,21 +771,6 @@
     " }
 " }
     
-" GUI Settings {
-	" GVIM- (here instead of .gvimrc)
-	if has('gui_running')
-		set guioptions-=T          	" remove the toolbar
-		set lines=40               	" 40 lines of text instead of 24,
-	else
-         " Enable 256 colors to stop the CSApprox warning and make xterm vim
-         " shine
-        if &term == 'xterm' || &term == 'screen'
-            set t_Co=256
-        endif
-		"set term=builtin_ansi       " Make arrow and other keys work
-	endif
-" }
-
 " Functions {
 
     " Initialize directories {
