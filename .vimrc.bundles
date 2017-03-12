@@ -65,7 +65,6 @@
         if count(g:spf13_bundle_groups, 'general')
             Plugin 'scrooloose/nerdtree'
             Plugin 'altercation/vim-colors-solarized'
-            Plugin 'spf13/vim-colors'
             Plugin 'tpope/vim-surround'
             Plugin 'tpope/vim-repeat'
             Plugin 'spf13/vim-autoclose'
@@ -73,19 +72,11 @@
             Plugin 'terryma/vim-multiple-cursors'
             Plugin 'vim-scripts/sessionman.vim'
             Plugin 'matchit.zip'
-            if (has("python") || has("python3")) && exists('g:spf13_use_powerline') && !exists('g:spf13_use_old_powerline')
-                Plugin 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
-            elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
-                Plugin 'Lokaltog/vim-powerline'
-            else
-                Plugin 'vim-airline/vim-airline'
-                Plugin 'vim-airline/vim-airline-themes'
-            endif
-
+            Plugin 'vim-airline/vim-airline'
+            Plugin 'vim-airline/vim-airline-themes'
             Plugin 'bling/vim-bufferline'
             Plugin 'Lokaltog/vim-easymotion'
             Plugin 'jistr/vim-nerdtree-tabs'
-            Plugin 'flazz/vim-colorschemes'
             Plugin 'mbbill/undotree'
             Plugin 'myusuf3/numbers.vim'
             Plugin 'nathanaelkane/vim-indent-guides'
@@ -152,13 +143,6 @@
         endif
     " }
 
-    " PHP {
-        if count(g:spf13_bundle_groups, 'php')
-            Plugin 'spf13/PIV'
-            Plugin 'arnaud-lb/vim-php-namespace'
-        endif
-    " }
-
     " Python {
         if count(g:spf13_bundle_groups, 'python')
             Plugin 'python.vim'
@@ -172,60 +156,11 @@
         endif
     " }
 
-    " Javascript {
-        if count(g:spf13_bundle_groups, 'javascript')
-            Plugin 'elzr/vim-json'
-            Plugin 'groenewege/vim-less'
-            Plugin 'pangloss/vim-javascript'
-        endif
-    " }
-
-    " Scala/Java {
-        if count(g:spf13_bundle_groups, 'scala')
-            Plugin 'derekwyatt/vim-scala'
-            Plugin 'derekwyatt/vim-sbt'
-            Plugin 'xptemplate'
-        endif
-    " }
-
-    " Haskell {
-        if count(g:spf13_bundle_groups, 'haskell')
-            Plugin 'travitch/hasksyn'
-            Plugin 'dag/vim2hs'
-            Plugin 'Twinside/vim-haskellConceal'
-            Plugin 'Twinside/vim-haskellFold'
-            Plugin 'lukerandall/haskellmode-vim'
-            Plugin 'ujihisa/neco-ghc'
-            Plugin 'eagletmt/ghcmod-vim'
-            Plugin 'Shougo/vimproc'
-            Plugin 'adinapoli/cumino'
-            Plugin 'bitc/vim-hdevtools'
-        endif
-    " }
-
     " HTML {
         if count(g:spf13_bundle_groups, 'html')
             Plugin 'amirh/HTML-AutoCloseTag'
             Plugin 'hail2u/vim-css3-syntax'
             Plugin 'gorodinskiy/vim-coloresque'
-            Plugin 'tpope/vim-haml'
-        endif
-    " }
-
-    " Ruby {
-        if count(g:spf13_bundle_groups, 'ruby')
-            Plugin 'tpope/vim-rails'
-            let g:rubycomplete_buffer_loading = 1
-            "let g:rubycomplete_classes_in_global = 1
-            "let g:rubycomplete_rails = 1
-        endif
-    " }
-
-    " Go Lang {
-        if count(g:spf13_bundle_groups, 'go')
-            Plugin 'fatih/vim-go'
-            Plugin 'AndrewRadev/splitjoin.vim'
-            Plugin 'garyburd/go-explorer'
         endif
     " }
 
@@ -234,9 +169,6 @@
             Plugin 'tpope/vim-markdown'
             Plugin 'spf13/vim-preview'
             Plugin 'cespare/vim-toml'
-            Plugin 'tpope/vim-cucumber'
-            Plugin 'quentindecock/vim-cucumber-align-pipes'
-            Plugin 'Puppet-Syntax-Highlighting'
         endif
     " }
 
