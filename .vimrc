@@ -152,19 +152,20 @@
 " }
 
 " Vim UI {
-
-    if filereadable(expand($MYBUNDLE. "/vim-colors-solarized/colors/solarized.vim"))
-        let g:solarized_termcolors=256
-        let g:solarized_termtrans=1
-        let g:solarized_contrast="high"
-        let g:solarized_visibility="high"
-        color solarized             " Load a colorscheme
+    if isdirectory(expand($MYBUNDLE. "/vim-colors-solarized"))
+        let solarizeddir = $MYBUNDLE . '/vim-colors-solarized'
+        set t_Co=256
+        let g:solarized_contrast="normal"    "default value is normal
+        let g:solarized_visibility="normal"    "default value is normal
+        let g:solarized_termcolors=16
+        set background=dark
+        color solarized
     endif
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
-    set cursorline                  " Highlight current line
+    set nocursorline                  " Highlight current line
 
     highlight clear SignColumn      " SignColumn should match background for
                                     " things like vim-gitgutter
@@ -233,6 +234,10 @@
     " Remove trailing whitespaces and ^M chars
     autocmd FileType python autocmd BufWritePre <buffer> call StripTrailingWhitespace()
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
+    "
+    " The " character will not be paired for vim config files {
+        let g:autoclose_vim_commentmode = 1
+    " }
 " }
 
 " Key (re)Mappings {
@@ -414,6 +419,11 @@
     map zh zH
 
 " }
+"
+" Personal keybindings {
+    imap <silent> <Leader>w <Esc>:write<CR>
+    nmap <silent> <Leader>w :write<CR>
+" }
 
 " Plugins {
 
@@ -525,6 +535,7 @@
     " Session List {
         set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
         if isdirectory(expand($MYBUNDLE."/sessionman.vim"))
+            let  sessionman_save_on_exit=1
             nmap <leader>sl :SessionList<CR>
             nmap <leader>ss :SessionSave<CR>
             nmap <leader>sc :SessionClose<CR>
@@ -613,124 +624,10 @@
             nnoremap <silent> <leader>gw :Gwrite<CR>:GitGutter<CR>
             nnoremap <silent> <leader>ge :Gedit<CR>
             nnoremap <silent> <leader>gg :GitGutterToggle<CR>
+            nnoremap <silent> <Leader>ga :Gwrite<CR>
         endif
     "}
     
-    " neocomplete {
-        if count(g:spf13_bundle_groups, 'neocomplete')
-            let g:acp_enableAtStartup = 0
-            let g:neocomplete#enable_at_startup = 1
-            let g:neocomplete#enable_smart_case = 1
-            let g:neocomplete#enable_auto_delimiter = 1
-            let g:neocomplete#max_list = 15
-            let g:neocomplete#force_overwrite_completefunc = 1
-
-
-            " Define dictionary.
-            let g:neocomplete#sources#dictionary#dictionaries = {
-                        \ 'default' : '',
-                        \ 'vimshell' : $HOME.'/.vimshell_hist',
-                        \ 'scheme' : $HOME.'/.gosh_completions'
-                        \ }
-
-            " Define keyword.
-            if !exists('g:neocomplete#keyword_patterns')
-                let g:neocomplete#keyword_patterns = {}
-            endif
-            let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-            " Plugin key-mappings {
-                " These two lines conflict with the default digraph mapping of <C-K>
-                if !exists('g:spf13_no_neosnippet_expand')
-                    imap <C-k> <Plug>(neosnippet_expand_or_jump)
-                    smap <C-k> <Plug>(neosnippet_expand_or_jump)
-                endif
-                if exists('g:spf13_noninvasive_completion')
-                    iunmap <CR>
-                    " <ESC> takes you out of insert mode
-                    inoremap <expr> <Esc>   pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
-                    " <CR> accepts first, then sends the <CR>
-                    inoremap <expr> <CR>    pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
-                    " <Down> and <Up> cycle like <Tab> and <S-Tab>
-                    inoremap <expr> <Down>  pumvisible() ? "\<C-n>" : "\<Down>"
-                    inoremap <expr> <Up>    pumvisible() ? "\<C-p>" : "\<Up>"
-                    " Jump up and down the list
-                    inoremap <expr> <C-d>   pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-                    inoremap <expr> <C-u>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-                else
-                    " <C-k> Complete Snippet
-                    " <C-k> Jump to next snippet point
-                    imap <silent><expr><C-k> neosnippet#expandable() ?
-                                \ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
-                                \ "\<C-e>" : "\<Plug>(neosnippet_expand_or_jump)")
-                    smap <TAB> <Right><Plug>(neosnippet_jump_or_expand)
-
-                    inoremap <expr><C-g> neocomplete#undo_completion()
-                    inoremap <expr><C-l> neocomplete#complete_common_string()
-                    "inoremap <expr><CR> neocomplete#complete_common_string()
-
-                    " <CR>: close popup
-                    " <s-CR>: close popup and save indent.
-                    inoremap <expr><s-CR> pumvisible() ? neocomplete#smart_close_popup()"\<CR>" : "\<CR>"
-
-                    function! CleverCr()
-                        if pumvisible()
-                            if neosnippet#expandable()
-                                let exp = "\<Plug>(neosnippet_expand)"
-                                return exp . neocomplete#smart_close_popup()
-                            else
-                                return neocomplete#smart_close_popup()
-                            endif
-                        else
-                            return "\<CR>"
-                        endif
-                    endfunction
-
-                    " <CR> close popup and save indent or expand snippet 
-                    imap <expr> <CR> CleverCr() 
-                    " <C-h>, <BS>: close popup and delete backword char.
-                    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-                    inoremap <expr><C-y> neocomplete#smart_close_popup()
-                endif
-                " <TAB>: completion.
-                inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-                inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-
-                " Courtesy of Matteo Cavalleri
-
-                function! CleverTab()
-                    if pumvisible()
-                        return "\<C-n>"
-                    endif 
-                    let substr = strpart(getline('.'), 0, col('.') - 1)
-                    let substr = matchstr(substr, '[^ \t]*$')
-                    if strlen(substr) == 0
-                        " nothing to match on empty string
-                        return "\<Tab>"
-                    else
-                        " existing text matching
-                        if neosnippet#expandable_or_jumpable()
-                            return "\<Plug>(neosnippet_expand_or_jump)"
-                        else
-                            return neocomplete#start_manual_complete()
-                        endif
-                    endif
-                endfunction
-
-                imap <expr> <Tab> CleverTab()
-            " }
-
-            " Enable heavy omni completion.
-            if !exists('g:neocomplete#sources#omni#input_patterns')
-                let g:neocomplete#sources#omni#input_patterns = {}
-            endif
-            let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-            let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-            let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-            let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-            let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-    " }
-
     " UndoTree {
         if isdirectory(expand($MYBUNDLE,'/undotree'))
             nnoremap <Leader>u :UndotreeToggle<CR>
@@ -762,11 +659,8 @@
             if !exists('g:airline_theme')
                 let g:airline_theme = 'solarized'
             endif
-            if !exists('g:airline_powerline_fonts')
-                " Use the default set of separators with a few customizations
-                let g:airline_left_sep='›'  " Slightly fancier than '>'
-                let g:airline_right_sep='‹' " Slightly fancier than '<'
-            endif
+            let g:airline_left_sep='»'  " Slightly fancier than '>'"
+            let g:airline_right_sep='«' " Slightly fancier than '<'"
         endif
     " }
 " }
