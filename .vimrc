@@ -529,7 +529,7 @@
     " }
 
     " Session List {
-        set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
+       set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
         if isdirectory(expand($MYBUNDLE."/sessionman.vim"))
             let  sessionman_save_on_exit=1
             nmap <leader>sl :SessionList<CR>
@@ -541,19 +541,6 @@
     " JSON {
         nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
         let g:vim_json_syntax_conceal = 0
-    " }
-
-    " PyMode {
-        if !has('python')
-            let g:pymode = 0
-        endif
-
-        if isdirectory(expand($MYBUNDLE."/python-mode"))
-            let g:pymode_lint_checker = "pyflakes"
-            let g:pymode_utils_whitespaces = 0
-            let g:pymode_options = 0
-            let g:pymode_rope = 0
-        endif
     " }
 
     " ctrlp {

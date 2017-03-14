@@ -135,6 +135,7 @@
             Plugin 'python.vim'
             Plugin 'python_match.vim'
             Plugin 'davidhalter/jedi-vim'
+            Plugin 'nvie/vim-flake8'
         endif
     " }
 
