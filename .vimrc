@@ -236,8 +236,7 @@
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
     "
     " The " character will not be paired for vim config files {
-        let g:autoclose_vim_commentmode = 1
-    " }
+    let g:autoclose_vim_commentmode = 1
 " }
 
 " Key (re)Mappings {
@@ -419,7 +418,7 @@
     map zh zH
 
 " }
-"
+
 " Personal keybindings {
     imap <silent> <Leader>w <Esc>:write<CR>
     nmap <silent> <Leader>w :write<CR>
@@ -432,7 +431,6 @@
             augroup textobj_sentence
                 autocmd!
                 autocmd FileType markdown call textobj#sentence#init()
-                autocmd FileType textile call textobj#sentence#init()
                 autocmd FileType text call textobj#sentence#init()
             augroup END
         endif
@@ -443,22 +441,18 @@
             augroup textobj_quote
                 autocmd!
                 autocmd FileType markdown call textobj#quote#init()
-                autocmd FileType textile call textobj#quote#init()
                 autocmd FileType text call textobj#quote#init({'educate': 0})
             augroup END
         endif
     " }
 
     " Misc {
-        if isdirectory(expand($MYBUNDLE."/nerdtree"))
-            let g:NERDShutUp=1
-        endif
         if isdirectory(expand($MYBUNDLE."/matchit.zip"))
             let b:match_ignorecase = 1
         endif
     " }
 
-    " Normal Vim omni-completion {
+    " Vim omni-completion {
     " To disable omni complete, add the following to your .vimrc.before.local file:
     "   let g:spf13_no_omni_complete = 1
         if !exists('g:spf13_no_omni_complete')
@@ -484,7 +478,8 @@
         " Automatically open and close the popup menu / preview window
             au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
             set completeopt=menu,preview,longest
-
+        else
+            " Enable omni-completion.
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
             autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
         endif
@@ -500,6 +495,7 @@
 
 	" NerdTree {
         if isdirectory(expand($MYBUNDLE."/nerdtree"))
+            let g:NERDShutUp=1
 		    map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 		    map <leader>e :NERDTreeFind<CR>
 		    nmap <leader>nt :NERDTreeFind<CR>
@@ -569,10 +565,7 @@
                 \ 'dir':  '\.git$\|\.hg$\|\.svn$',
                 \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
 
-        " On Windows use "dir" as fallback command.
-            if has('win32') || has('win64')
-                let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
-            elseif executable('ag')
+            if executable('ag')
                 let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
             elseif executable('ack-grep')
                 let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
@@ -594,21 +587,6 @@
     " TagBar {
         if isdirectory(expand($MYBUNDLE."/tagbar"))
             nnoremap <silent> <leader>tt :TagbarToggle<CR>
-
-            " If using go please install the gotags program using the following
-            " go install github.com/jstemmer/gotags
-            " And make sure gotags is in your path
-            let g:tagbar_type_go = {
-                \ 'ctagstype' : 'go',
-                \ 'kinds'     : [  'p:package', 'i:imports:1', 'c:constants', 'v:variables',
-                    \ 't:types',  'n:interfaces', 'w:fields', 'e:embedded', 'm:methods',
-                    \ 'r:constructor', 'f:functions' ],
-                \ 'sro' : '.',
-                \ 'kind2scope' : { 't' : 'ctype', 'n' : 'ntype' },
-                \ 'scope2kind' : { 'ctype' : 't', 'ntype' : 'n' },
-                \ 'ctagsbin'  : 'gotags',
-                \ 'ctagsargs' : '-sort -silent'
-                \ }
         endif
     "}
 
@@ -628,6 +606,16 @@
         endif
     "}
     
+    " Remap ultisnips keybindings to avoid conflict with YouCompleteMe {
+        if isdirectory(expand($MYBUNDLE."/YouCompleteMe"))
+            if isdirectory(expand($MYBUNDLE."/ultisnips"))
+                let g:UltiSnipsExpandTrigger="<c-k>"
+                let g:UltiSnipsJumpForwardTrigger="<c-j>"
+                let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+            endif
+        endif
+    " }
+    
     " UndoTree {
         if isdirectory(expand($MYBUNDLE,'/undotree'))
             nnoremap <Leader>u :UndotreeToggle<CR>
@@ -643,26 +631,85 @@
             let g:indent_guides_enable_on_vim_startup = 1
         endif
     " }
-
-    " vim-airline {
-        " Set configuration options for the statusline plugin vim-airline.
-        " Use the powerline theme and optionally enable powerline symbols.
-        " To use the symbols , , , , , , and .in the statusline
-        " segments add the following to your .vimrc.before.local file:
-        "   let g:airline_powerline_fonts=1
-        " If the previous symbols do not render for you then install a
-        " powerline enabled font.
-
-        " See `:echo g:airline_theme_map` for some more choices
-        " Default in terminal vim is 'dark'
-        if isdirectory(expand($MYBUNDLE."/vim-airline/"))
-            if !exists('g:airline_theme')
-                let g:airline_theme = 'solarized'
+    
+    " syntastic {
+            if isdirectory(expand($MYBUNDLE."/syntastic"))
+                let g:syntastic_always_populate_loc_list = 1
+                let g:syntastic_auto_loc_list = 1
+                let g:syntastic_check_on_wq = 0
             endif
-            let g:airline_left_sep='»'  " Slightly fancier than '>'"
-            let g:airline_right_sep='«' " Slightly fancier than '<'"
-        endif
     " }
+    
+    "  vim-lightline {
+    " Set configuration options for the statusline plugin vim-lightline.
+    if isdirectory(expand($MYBUNDLE."/lightline.vim"))
+        let g:lightline = {
+            \ 'colorscheme': 'wombat',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+            \ },
+            \ 'component_function': {
+            \   'fugitive': 'LightLineFugitive',
+            \   'readonly': 'LightLineReadonly',
+            \   'modified': 'LightLineModified',
+            \   'filetype': 'LightLineFiletype',
+            \   'fileformat': 'LightLineFileformat',
+            \   'fileencoding': 'LightLineFileencoding'
+            \ },
+            \ 'separator': { 'left': '', 'right': '' },
+            \ 'subseparator': { 'left': '', 'right': '' }
+        \ }
+    endif
+    "  }
+
+    fu! LightLineFileencoding()
+        return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+    endfunction
+
+    fu! LightLineFiletype()
+        return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+    endfunction
+
+    fu! LightLineFileformat()
+        return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+    endfunction
+
+    "fu! LightLineFilename()
+    "    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+    "        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+    "        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+    "endfunction
+
+   fu! LightLineModified()
+        if &filetype == "help"
+            return ""
+        elseif &modified
+            return "+"
+        elseif &modifiable
+            return ""
+        else
+            return ""
+        endif
+    endfunction 
+
+    fu! LightLineReadOnly()
+        if &filetype == "help"
+            return ""
+        elseif &readonly
+            return "\ue0a2"
+        else
+            return ""
+        endif
+    endfunction
+
+    fu! LightLineFugitive()
+        if exists("*fugitive#head")
+            let branch = fugitive#head()
+            return branch !=# '' ? "\ue0a0".branch : ''
+        endif
+        return ''
+    endfunction
 " }
     
 " Functions {
