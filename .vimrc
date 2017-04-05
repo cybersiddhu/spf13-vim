@@ -486,16 +486,6 @@
         endif
     " }
 
-    " Ctags {
-        "set tags=./tags;/,~/.vimtags
-
-        "" Make tags placed in .git/tags file available in all levels of a repository
-        "let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
-        "if gitroot != ''
-            "let &tags = &tags . ',' . gitroot . '/.git/tags'
-        "endif
-    " }
-
     " AutoCloseTag {
         " Make it so AutoCloseTag works for xml and xhtml files as well
         au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
@@ -765,7 +755,7 @@
             autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
             autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
             autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
+            autocmd FileType java setlocal omnifunc=javacomplete#Complete
         endif
     " }
     

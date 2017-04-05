@@ -53,7 +53,7 @@
     " In your .vimrc.bundles.local file"
     " list only the plugin groups you will use
     if !exists('g:spf13_bundle_groups')
-        let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc']
+        let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc', 'java']
     endif
 
     " To override all the included bundles, put
@@ -180,13 +180,19 @@
         endif
     " }
 
-    " Scala/Java {
+    " Scala {
         if count(g:spf13_bundle_groups, 'scala')
             Plugin 'derekwyatt/vim-scala'
             Plugin 'derekwyatt/vim-sbt'
             Plugin 'xptemplate'
         endif
     " }
+
+    " Java {
+        if count(g:spf13_bundle_groups, 'java')
+            Plugin 'artur-shaik/vim-javacomplete2'
+        endif
+    " }"
 
     " Haskell {
         if count(g:spf13_bundle_groups, 'haskell')
