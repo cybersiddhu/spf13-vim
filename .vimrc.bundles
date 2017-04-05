@@ -191,6 +191,7 @@
     " Java {
         if count(g:spf13_bundle_groups, 'java')
             Plugin 'artur-shaik/vim-javacomplete2'
+            Plugin 'airblade/vim-rooter'
         endif
     " }"
 
