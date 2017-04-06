@@ -809,28 +809,85 @@
         endif
     " }
 
-    " vim-airline {
-        " Set configuration options for the statusline plugin vim-airline.
-        " Use the powerline theme and optionally enable powerline symbols.
-        " To use the symbols , , , , , , and .in the statusline
-        " segments add the following to your .vimrc.before.local file:
-        "   let g:airline_powerline_fonts=1
-        " If the previous symbols do not render for you then install a
-        " powerline enabled font.
+    "  vim-lightline {
+    " Set configuration options for the statusline plugin vim-lightline.
+    if isdirectory(expand($MYBUNDLE."/lightline.vim"))
+        let g:lightline = {
+            \ 'colorscheme': 'wombat',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+            \ },
+            \ 'component_function': {
+            \   'fugitive': 'LightLineFugitive',
+            \   'readonly': 'LightLineReadonly',
+            \   'modified': 'LightLineModified',
+            \   'filetype': 'LightLineFiletype',
+            \   'fileformat': 'LightLineFileformat',
+            \   'fileencoding': 'LightLineFileencoding'
+            \ },
+            \ 'separator': { 'left': '', 'right': '' },
+            \ 'subseparator': { 'left': '', 'right': '' }
+        \ }
+    endif
+    "  }
+    
+    fu! LightLineFileencoding()
+        return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+    endfunction
 
-        " See `:echo g:airline_theme_map` for some more choices
-        " Default in terminal vim is 'dark'
-        if isdirectory(expand($MYBUNDLE."/vim-airline/"))
-            if !exists('g:airline_theme')
-                let g:airline_theme = 'solarized'
-            endif
-            if !exists('g:airline_powerline_fonts')
-                " Use the default set of separators with a few customizations
-                let g:airline_left_sep='›'  " Slightly fancier than '>'
-                let g:airline_right_sep='‹' " Slightly fancier than '<'
-            endif
+    fu! LightLineFiletype()
+        return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+    endfunction
+
+    fu! LightLineFileformat()
+        return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+    endfunction
+
+    "fu! LightLineFilename()
+    "    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+    "        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+    "        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+    "endfunction
+
+   fu! LightLineModified()
+        if &filetype == "help"
+            return ""
+        elseif &modified
+            return "+"
+        elseif &modifiable
+            return ""
+        else
+            return ""
         endif
-    " }
+    endfunction 
+
+    fu! LightLineReadOnly()
+        if &filetype == "help"
+            return ""
+        elseif &readonly
+            return "\ue0a2"
+        else
+            return ""
+        endif
+    endfunction
+
+    fu! LightLineFugitive()
+        if exists("*fugitive#head")
+            let branch = fugitive#head()
+            return branch !=# '' ? "\ue0a0".branch : ''
+        endif
+        return ''
+    endfunction
+
+" }
+
+" syntastic {
+        if isdirectory(expand($MYBUNDLE."/syntastic"))
+            let g:syntastic_always_populate_loc_list = 1
+            let g:syntastic_auto_loc_list = 1
+            let g:syntastic_check_on_wq = 0
+        endif
 " }
     
 " GUI Settings {
