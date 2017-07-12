@@ -130,6 +130,11 @@
             Plugin 'Valloric/YouCompleteMe'
             Plugin 'SirVer/ultisnips'
             Plugin 'honza/vim-snippets'
+            " Source support_function.vim to support vim-snippets.
+            if filereadable(expand($MYBUNDLE."/vim-snippets/snippets/support_functions.vim"))
+                let $MYSNIPF=$MYBUNDLE . "/vim-snippets/snippets/support_functions.vim"
+                source $MYSNIPF
+            endif
         elseif count(g:spf13_bundle_groups, 'neocomplcache')
             Plugin 'Shougo/neocomplcache'
             Plugin 'Shougo/neosnippet'
