@@ -397,10 +397,10 @@
 
     " Fix home and end keybindings for screen, particularly on mac
     " - for some reason this fixes the arrow keys too. huh.
-    map [F $
-    imap [F $
-    map [H g0
-    imap [H g0
+    "map [F $
+    "imap [F $
+    "map [H g0
+    "imap [H g0
 
     " For when you forget to sudo.. Really Write the file.
     cmap w!! w !sudo tee % >/dev/null
@@ -473,7 +473,7 @@
             hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
             " Some convenient mappings
-            inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+            "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
             inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
             inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
             inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
@@ -731,31 +731,29 @@
 
                 imap <expr> <Tab> CleverTab()
             " }
+            " Enable omni-completion.
+            " To disable omni complete, add the following to your .vimrc.before.local file:
+            "   let g:spf13_no_omni_complete = 1
+            if !exists('g:spf13_no_omni_complete')
+                autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+                autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+                autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+                autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+                autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+                autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+                autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+                autocmd FileType java setlocal omnifunc=javacomplete#Complete
+            endif
 
             " Enable heavy omni completion.
             if !exists('g:neocomplete#sources#omni#input_patterns')
                 let g:neocomplete#sources#omni#input_patterns = {}
             endif
-            let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+            "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
             let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
             let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-            let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-            let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-    " }
-
-    " Normal Vim omni-completion {
-    " To disable omni complete, add the following to your .vimrc.before.local file:
-    "   let g:spf13_no_omni_complete = 1
-        elseif !exists('g:spf13_no_omni_complete')
-            " Enable omni-completion.
-            autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-            autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-            autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-            autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-            autocmd FileType java setlocal omnifunc=javacomplete#Complete
+            "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+            "let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
         endif
     " }
     
