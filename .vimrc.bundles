@@ -50,19 +50,10 @@
         endif
     " }
 
-    " In your .vimrc.bundles.local file"
-    " list only the plugin groups you will use
-    if !exists('g:spf13_bundle_groups')
-        let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming', 'python', 'javascript', 'html', 'misc', 'java']
-    endif
-
     " To override all the included bundles, put
     " g:override_spf13_bundles = 1
     " in your .vimrc.bundles.local file"
-    if !exists("g:override_spf13_bundles")
-
     " General {
-        if count(g:spf13_bundle_groups, 'general')
             Plugin 'scrooloose/nerdtree'
             Plugin 'Xuyuanp/nerdtree-git-plugin'
             Plugin 'altercation/vim-colors-solarized'
@@ -88,20 +79,9 @@
             Plugin 'kana/vim-textobj-user'
             Plugin 'kana/vim-textobj-indent'
             Plugin 'gcmt/wildfire.vim'
-        endif
     " }
 
-    " Writing {
-        if count(g:spf13_bundle_groups, 'writing')
-            Plugin 'reedes/vim-litecorrect'
-            Plugin 'reedes/vim-textobj-sentence'
-            Plugin 'reedes/vim-textobj-quote'
-            Plugin 'reedes/vim-wordy'
-        endif
-    " }
-    
     " General Programming {
-        if count(g:spf13_bundle_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
             Plugin 'scrooloose/syntastic'
             Plugin 'tpope/vim-fugitive'
@@ -112,48 +92,27 @@
             if executable('ctags')
                 Plugin 'majutsushi/tagbar'
             endif
-        endif
     " }
 
     " Snippets & AutoComplete {
-        if count(g:spf13_bundle_groups, 'snipmate')
-            Plugin 'garbas/vim-snipmate'
-            Plugin 'honza/vim-snippets'
-            " Source support_function.vim to support vim-snippets.
-            if filereadable(expand($MYBUNDLE."/vim-snippets/snippets/support_functions.vim"))
-                let $MYSNIPF=$MYBUNDLE . "/vim-snippets/snippets/support_functions.vim"
-                source $MYSNIPF
-            endif
-        elseif count(g:spf13_bundle_groups, 'neocomplcache')
-            Plugin 'Shougo/neocomplcache'
-            Plugin 'Shougo/neosnippet'
-            Plugin 'Shougo/neosnippet-snippets'
-            Plugin 'honza/vim-snippets'
-        elseif count(g:spf13_bundle_groups, 'neocomplete')
             Plugin 'Shougo/neocomplete.vim.git'
             Plugin 'Shougo/neosnippet'
             Plugin 'Shougo/neosnippet-snippets'
             Plugin 'honza/vim-snippets'
-        endif
     " }
 
     " Go Lang {
-        if count(g:spf13_bundle_groups, 'go')
             Plugin 'fatih/vim-go'
             Plugin 'AndrewRadev/splitjoin.vim'
             Plugin 'garyburd/go-explorer'
-        endif
     " }
 
     " Misc {
-        if count(g:spf13_bundle_groups, 'misc')
             Plugin 'tpope/vim-markdown'
             Plugin 'spf13/vim-preview'
             Plugin 'cespare/vim-toml'
-        endif
     " }
 
-    endif
     call vundle#end()
 
 " }
