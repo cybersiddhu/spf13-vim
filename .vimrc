@@ -153,18 +153,20 @@
 
 " Vim UI {
 
-    if filereadable(expand($MYBUNDLE. "/vim-colors-solarized/colors/solarized.vim"))
-        "let g:solarized_termcolors=256
-        let g:solarized_termtrans=1
-        let g:solarized_contrast="high"
-        let g:solarized_visibility="high"
-        color solarized             " Load a colorscheme
+    if isdirectory(expand($MYBUNDLE. "/vim-colors-solarized"))
+        let solarizeddir = $MYBUNDLE . '/vim-colors-solarized'
+        set t_Co=256
+        let g:solarized_contrast="normal"    "default value is normal
+        let g:solarized_visibility="normal"    "default value is normal
+        let g:solarized_termcolors=16
+        set background=dark
+        color solarized
     endif
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
-    set cursorline                  " Highlight current line
+    set nocursorline                  
 
     highlight clear SignColumn      " SignColumn should match background for
                                     " things like vim-gitgutter
@@ -189,6 +191,7 @@
 
         if isdirectory(expand($MYBUNDLE.'/vim-fugitive'))
             set statusline+=%{fugitive#statusline()} " Git Hotness
+            nnoremap <silent> <Leader>ga :Gwrite<CR>
         endif
 
         set statusline+=\ [%{&ff}/%Y]            " Filetype
@@ -229,21 +232,6 @@
     set splitbelow                  " Puts new split windows to the bottom of the current
     "set matchpairs+=<:>             " Match, to be used with %
     set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
-    "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
-    " Remove trailing whitespaces and ^M chars
-    autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
-    "autocmd FileType go autocmd BufWritePre <buffer> Fmt
-    autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-    autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2
-    " preceding line best in a plugin but here for now.
-
-    autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-
-    " Workaround vim-commentary for Haskell
-    autocmd FileType haskell setlocal commentstring=--\ %s
-    " Workaround broken colour highlighting in Haskell
-    autocmd FileType haskell setlocal nospell
-
 " }
 
 " Key (re)Mappings {
@@ -395,13 +383,6 @@
     " http://stackoverflow.com/a/8064607/127816
     vnoremap . :normal .<CR>
 
-    " Fix home and end keybindings for screen, particularly on mac
-    " - for some reason this fixes the arrow keys too. huh.
-    "map [F $
-    "imap [F $
-    "map [H g0
-    "imap [H g0
-
     " For when you forget to sudo.. Really Write the file.
     cmap w!! w !sudo tee % >/dev/null
 
@@ -433,7 +414,6 @@
             augroup textobj_sentence
                 autocmd!
                 autocmd FileType markdown call textobj#sentence#init()
-                autocmd FileType textile call textobj#sentence#init()
                 autocmd FileType text call textobj#sentence#init()
             augroup END
         endif
@@ -444,7 +424,6 @@
             augroup textobj_quote
                 autocmd!
                 autocmd FileType markdown call textobj#quote#init()
-                autocmd FileType textile call textobj#quote#init()
                 autocmd FileType text call textobj#quote#init({'educate': 0})
             augroup END
         endif
@@ -457,39 +436,6 @@
         if isdirectory(expand($MYBUNDLE."/matchit.zip"))
             let b:match_ignorecase = 1
         endif
-    " }
-
-    " OmniComplete {
-        if !exists('g:spf13_no_omni_complete')
-            if has("autocmd") && exists("+omnifunc")
-                autocmd Filetype *
-                    \if &omnifunc == "" |
-                    \setlocal omnifunc=syntaxcomplete#Complete |
-                    \endif
-            endif
-
-            hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-            hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-            hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-
-            " Some convenient mappings
-            "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-            inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-            inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-            inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-            inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-            inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-
-        " Automatically open and close the popup menu / preview window
-            au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-            set completeopt=menu,preview,longest
-        endif
-    " }
-
-    " AutoCloseTag {
-        " Make it so AutoCloseTag works for xml and xhtml files as well
-        au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-        nmap <Leader>ac <Plug>ToggleAutoCloseMappings
     " }
 
 	" SnipMate {
@@ -515,49 +461,13 @@
         endif
 	" }
     
-    " Tabularize {
-        if isdirectory(expand($MYBUNDLE."/tabular"))
-            nmap <Leader>a& :Tabularize /&<CR>
-            vmap <Leader>a& :Tabularize /&<CR>
-            nmap <Leader>a= :Tabularize /=<CR>
-            vmap <Leader>a= :Tabularize /=<CR>
-            nmap <Leader>a: :Tabularize /:<CR>
-            vmap <Leader>a: :Tabularize /:<CR>
-            nmap <Leader>a:: :Tabularize /:\zs<CR>
-            vmap <Leader>a:: :Tabularize /:\zs<CR>
-            nmap <Leader>a, :Tabularize /,<CR>
-            vmap <Leader>a, :Tabularize /,<CR>
-            nmap <Leader>a,, :Tabularize /,\zs<CR>
-            vmap <Leader>a,, :Tabularize /,\zs<CR>
-            nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-            vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-        endif
-    " }
-
     " Session List {
         set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
         if isdirectory(expand($MYBUNDLE."/sessionman.vim"))
+            let  sessionman_save_on_exit=1
             nmap <leader>sl :SessionList<CR>
             nmap <leader>ss :SessionSave<CR>
             nmap <leader>sc :SessionClose<CR>
-        endif
-    " }
-
-    " JSON {
-        nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
-        let g:vim_json_syntax_conceal = 0
-    " }
-
-    " PyMode {
-        if !has('python')
-            let g:pymode = 0
-        endif
-
-        if isdirectory(expand($MYBUNDLE."/python-mode"))
-            let g:pymode_lint_checker = "pyflakes"
-            let g:pymode_utils_whitespaces = 0
-            let g:pymode_options = 0
-            let g:pymode_rope = 0
         endif
     " }
 
@@ -793,13 +703,6 @@
     " }
 
     " indent_guides {
-        "if !exists('g:spf13_no_indent_guides_autocolor')
-            "let g:indent_guides_auto_colors = 1
-        "else
-            "" For some colorschemes, autocolor will not work (eg: 'desert', 'ir_black')
-            "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#212121 ctermbg=3
-            "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#404040 ctermbg=4
-        "endif
         if isdirectory(expand($MYBUNDLE,'/vim-indent-guides'))
             let g:indent_guides_start_level = 2
             let g:indent_guides_guide_size = 1
@@ -888,21 +791,6 @@
         endif
 " }
     
-" GUI Settings {
-	" GVIM- (here instead of .gvimrc)
-	if has('gui_running')
-		set guioptions-=T          	" remove the toolbar
-		set lines=40               	" 40 lines of text instead of 24,
-	else
-         " Enable 256 colors to stop the CSApprox warning and make xterm vim
-         " shine
-        if &term == 'xterm' || &term == 'screen'
-            set t_Co=256
-        endif
-		"set term=builtin_ansi       " Make arrow and other keys work
-	endif
-" }
-
 " Functions {
 
     " Initialize directories {
