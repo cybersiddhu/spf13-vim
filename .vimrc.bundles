@@ -1,119 +1,84 @@
 " Modeline and Notes {
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 "
-"                    __ _ _____              _
-"         ___ _ __  / _/ |___ /      __   __(_)_ __ ___
-"        / __| '_ \| |_| | |_ \ _____\ \ / /| | '_ ` _ \
-"        \__ \ |_) |  _| |___) |_____|\ V / | | | | | | |
-"        |___/ .__/|_| |_|____/        \_/  |_|_| |_| |_|
-"            |_|
-"
-"   This is the personal .vimrc.bundles file of Steve Francia.
-"   While much of it is beneficial for general use, I would
-"   recommend picking out the parts you want and understand.
-"
-"   You can find me at http://spf13.com
 " }
 "
 " Environment {
     " Setup Plugin Support {
-        filetype off
-        set rtp+=$MYVUNDLE
-        call vundle#begin($MYBUNDLE)
+        call plug#begin($MYPLUGINS)
     " }
 
-    " Add an UnPlugin command {
-    function! UnPlugin(arg, ...)
-      let bundle = vundle#config#init_bundle(a:arg, a:000)
-      call filter(g:bundles, 'v:val["name_spec"] != "' . a:arg . '"')
-    endfunction
-
-    com! -nargs=+         UnPlugin
-    \ call UnPlugin(<args>)
-    " }
 " }
 
 " Plugins {
 
     " Deps {
-        Plugin 'gmarik/Vundle.vim'
-        Plugin 'MarcWeber/vim-addon-mw-utils'
-        Plugin 'tomtom/tlib_vim'
+        Plug 'MarcWeber/vim-addon-mw-utils'
+        Plug 'tomtom/tlib_vim'
         if executable('ack-grep')
             let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-            Plugin 'mileszs/ack.vim'
+            Plug 'mileszs/ack.vim'
         elseif executable('ack')
-            Plugin 'mileszs/ack.vim'
+            Plug 'mileszs/ack.vim'
         elseif executable('ag')
-            Plugin 'mileszs/ack.vim'
+            Plug 'mileszs/ack.vim'
             let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
         endif
     " }
 
-    " To override all the included bundles, put
-    " g:override_spf13_bundles = 1
-    " in your .vimrc.bundles.local file"
     " General {
-            Plugin 'scrooloose/nerdtree'
-            Plugin 'Xuyuanp/nerdtree-git-plugin'
-            Plugin 'altercation/vim-colors-solarized'
-            Plugin 'tpope/vim-surround'
-            Plugin 'tpope/vim-repeat'
-            Plugin 'kien/ctrlp.vim'
-            Plugin 'terryma/vim-multiple-cursors'
-            Plugin 'vim-scripts/sessionman.vim'
-            Plugin 'matchit.zip'
-            Plugin 'itchyny/lightline.vim'
-            Plugin 'bling/vim-bufferline'
-            Plugin 'jistr/vim-nerdtree-tabs'
-            Plugin 'mbbill/undotree'
-            Plugin 'myusuf3/numbers.vim'
-            Plugin 'nathanaelkane/vim-indent-guides'
-            Plugin 'ryanoasis/vim-devicons'
-            if !exists('g:spf13_no_views')
-                Plugin 'vim-scripts/restore_view.vim'
-            endif
-            Plugin 'mhinz/vim-signify'
-            Plugin 'tpope/vim-abolish.git'
-            Plugin 'osyo-manga/vim-over'
-            Plugin 'kana/vim-textobj-user'
-            Plugin 'kana/vim-textobj-indent'
-            Plugin 'gcmt/wildfire.vim'
+            Plug 'scrooloose/nerdtree'
+            Plug 'Xuyuanp/nerdtree-git-plugin'
+            Plug 'arcticicestudio/nord-vim', { 'tag': 'v0.10.0' }
+            Plug 'tpope/vim-surround'
+            Plug 'tpope/vim-repeat'
+            Plug 'kien/ctrlp.vim'
+            Plug 'terryma/vim-multiple-cursors'
+            Plug 'vim-scripts/sessionman.vim'
+            Plug 'itchyny/lightline.vim'
+            Plug 'bling/vim-bufferline'
+            Plug 'jistr/vim-nerdtree-tabs'
+            Plug 'mbbill/undotree'
+            Plug 'myusuf3/numbers.vim'
+            Plug 'nathanaelkane/vim-indent-guides'
+            Plug 'ryanoasis/vim-devicons'
+            Plug 'vim-scripts/restore_view.vim'
+            Plug 'mhinz/vim-signify'
+            Plug 'tpope/vim-abolish.git'
+            Plug 'osyo-manga/vim-over'
+            Plug 'kana/vim-textobj-user'
+            Plug 'kana/vim-textobj-indent'
+            Plug 'gcmt/wildfire.vim'
     " }
 
     " General Programming {
             " Pick one of the checksyntax, jslint, or syntastic
-            Plugin 'scrooloose/syntastic'
-            Plugin 'tpope/vim-fugitive'
-            Plugin 'mattn/webapi-vim'
-            Plugin 'mattn/gist-vim'
-            Plugin 'scrooloose/nerdcommenter'
-            Plugin 'tpope/vim-commentary'
+            Plug 'scrooloose/syntastic'
+            Plug 'tpope/vim-fugitive'
+            Plug 'mattn/webapi-vim'
+            Plug 'mattn/gist-vim'
+            Plug 'scrooloose/nerdcommenter'
+            Plug 'tpope/vim-commentary'
             if executable('ctags')
-                Plugin 'majutsushi/tagbar'
+                Plug 'majutsushi/tagbar'
             endif
     " }
 
     " Snippets & AutoComplete {
-            Plugin 'Shougo/neocomplete.vim.git'
-            Plugin 'Shougo/neosnippet'
-            Plugin 'Shougo/neosnippet-snippets'
-            Plugin 'honza/vim-snippets'
+            Plug 'Shougo/neocomplete.vim.git'
+            Plug 'SirVer/ultisnips'
     " }
 
     " Go Lang {
-            Plugin 'fatih/vim-go'
-            Plugin 'AndrewRadev/splitjoin.vim'
-            Plugin 'garyburd/go-explorer'
+            Plug 'fatih/vim-go'
+            Plug 'AndrewRadev/splitjoin.vim'
     " }
 
     " Misc {
-            Plugin 'tpope/vim-markdown'
-            Plugin 'spf13/vim-preview'
-            Plugin 'cespare/vim-toml'
+            Plug 'tpope/vim-markdown'
+            Plug 'cespare/vim-toml'
     " }
 
-    call vundle#end()
+    call plug#end()
 
 " }
-
