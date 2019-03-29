@@ -65,13 +65,17 @@
     " }
 
     " Snippets & AutoComplete {
-            Plug 'Shougo/neocomplete.vim.git'
             Plug 'SirVer/ultisnips'
+            Plug 'honza/vim-snippets'
+            Plug 'Shougo/deoplete.nvim'
+            Plug 'roxma/nvim-yarp'
+            Plug 'roxma/vim-hug-neovim-rpc'
     " }
 
     " Go Lang {
             Plug 'fatih/vim-go'
             Plug 'AndrewRadev/splitjoin.vim'
+            Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
     " }
 
     " Misc {
