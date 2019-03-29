@@ -454,6 +454,10 @@
             let g:syntastic_check_on_wq = 0
         endif
 " }
+"
+" deoplete {
+        let g:deoplete#enable_at_startup = 1
+" }
     
 " Functions {
 

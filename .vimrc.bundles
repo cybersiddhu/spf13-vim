@@ -33,7 +33,7 @@
             Plug 'tpope/vim-surround'
             Plug 'tpope/vim-repeat'
             Plug 'kien/ctrlp.vim'
-            Plug 'terryma/vim-multiple-cursors'
+            "Plug 'terryma/vim-multiple-cursors'
             Plug 'vim-scripts/sessionman.vim'
             Plug 'itchyny/lightline.vim'
             Plug 'bling/vim-bufferline'
