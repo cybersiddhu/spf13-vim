@@ -118,7 +118,7 @@
         set statusline=%<%f\                     " Filename
         set statusline+=%w%h%m%r                 " Options
 
-        if isdirectory(expand($MYPLUGINS'/vim-fugitive'))
+        if isdirectory(expand($MYPLUGINS.'/vim-fugitive'))
             set statusline+=%{fugitive#statusline()} " Git Hotness
             nnoremap <silent> <Leader>ga :Gwrite<CR>
         endif
@@ -359,7 +359,7 @@
     "}
     
     " UndoTree {
-        if isdirectory(expand($MYPLUGINS,'/undotree'))
+        if isdirectory(expand($MYPLUGINS.'/undotree'))
             nnoremap <Leader>u :UndotreeToggle<CR>
         " If undotree is opened, it is likely one wants to interact with it.
             let g:undotree_SetFocusWhenToggle=1
@@ -367,7 +367,7 @@
     " }
 
     " indent_guides {
-        if isdirectory(expand($MYPLUGINS,'/vim-indent-guides'))
+        if isdirectory(expand($MYPLUGINS.'/vim-indent-guides'))
             let g:indent_guides_start_level = 2
             let g:indent_guides_guide_size = 1
             let g:indent_guides_enable_on_vim_startup = 1
