@@ -92,7 +92,9 @@
 
 " Vim UI {
 
-    colorscheme nord
+    if isdirectory(expand($MYPLUGINS."/nord-vim"))
+        colorscheme nord
+    endif
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
