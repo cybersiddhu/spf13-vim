@@ -33,7 +33,7 @@
             Plug 'arcticicestudio/nord-vim', { 'tag': 'v0.10.0' }
             Plug 'tpope/vim-surround'
             Plug 'tpope/vim-repeat'
-            Plug 'kien/ctrlp.vim'
+            Plug 'ctrlpvim/ctrlp.vim'
             "Plug 'terryma/vim-multiple-cursors'
             Plug 'vim-scripts/sessionman.vim'
             Plug 'itchyny/lightline.vim'
