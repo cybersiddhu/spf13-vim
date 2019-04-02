@@ -462,9 +462,9 @@
 " }
 "
 " snippets {
-        let g:UltiSnipsExpandTrigger="<tab>"
-        let g:UltiSnipsJumpForwardTrigger="<c-b>"
-        let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+        let g:UltiSnipsExpandTrigger="<C-j>"
+        let g:UltiSnipsJumpForwardTrigger="<C-j>"
+        let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 " }
     
 " Functions {
