@@ -463,8 +463,15 @@
 "
 " snippets {
         let g:UltiSnipsExpandTrigger="<C-j>"
-        let g:UltiSnipsJumpForwardTrigger="<C-j>"
+        let g:UltiSnipsJumpForwardTrigger="<C-n>"
         let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+        if isdirectory($MYPLUGINS."/vim-go/gosnippets/UltiSnips")
+            if isdirectory($MYPLUGINS."/vim-snippets/UltiSnips")
+                let g:UltiSnipsSnippetDirectories=[$MYPLUGINS."/vim-go/gosnippets/UltiSnips", $MYPLUGINS."/vim-snippets/UltiSnips"]
+            else
+                let g:UltiSnipsSnippetDirectories=[$MYPLUGINS."/vim-go/gosnippets/UltiSnips"]
+            endif
+        endif
 " }
     
 " Functions {
