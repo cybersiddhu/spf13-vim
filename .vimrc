@@ -208,6 +208,9 @@
     " Change Working Directory to that of the current file
     cmap cwd lcd %:p:h
     cmap cd. lcd %:p:h
+    nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+    " Type :e %%
+    cabbr <expr> %% expand('%:p:h')
 
     " Visual shifting (does not exit Visual mode)
     vnoremap < <gv
