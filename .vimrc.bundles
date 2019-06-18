@@ -76,7 +76,7 @@
     " Go Lang {
             Plug 'fatih/vim-go'
             Plug 'AndrewRadev/splitjoin.vim'
-            Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+            "Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
     " }
 
     " Misc {
