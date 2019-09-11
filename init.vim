@@ -18,8 +18,9 @@
         set nocompatible        " Must be first line
 " }
 "
-" Custom vim configuration path {
-    if exists('$VIMDIR')
+" Custom nvim configuration path {
+    if exists('$XDG_CONFIG_HOME')
+        let $VIMDIR=$XDG_CONFIG_HOME.'/nvim'
         let $MYVIMPLUG=$VIMDIR
         let $MYPLUGINS=$VIMDIR.'/plugged'
     endif
@@ -79,7 +80,7 @@
     au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 
     " Setting up the directories {
-        set backup                  " Backups are nice ...
+        "set backup                  " Backups are nice ...
         if has('persistent_undo')
             set undofile                " So is persistent undo ...
             set undolevels=1000         " Maximum number of changes that can be undone
