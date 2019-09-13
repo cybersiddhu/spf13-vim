@@ -14,8 +14,8 @@
 " Plugins {
 
     " Deps {
-        Plug 'MarcWeber/vim-addon-mw-utils'
-        Plug 'tomtom/tlib_vim'
+        "Plug 'MarcWeber/vim-addon-mw-utils'
+        "Plug 'tomtom/tlib_vim'
         if executable('ack-grep')
             let g:ackprg="ack-grep -H --nocolor --nogroup --column"
             Plug 'mileszs/ack.vim'
@@ -44,17 +44,17 @@
             Plug 'nathanaelkane/vim-indent-guides'
             Plug 'ryanoasis/vim-devicons'
             Plug 'vim-scripts/restore_view.vim'
-            Plug 'mhinz/vim-signify'
+            "Plug 'mhinz/vim-signify'
             "Plug 'tpope/vim-abolish.git'
-            Plug 'osyo-manga/vim-over'
-            Plug 'kana/vim-textobj-user'
-            Plug 'kana/vim-textobj-indent'
-            Plug 'gcmt/wildfire.vim'
+            "Plug 'osyo-manga/vim-over'
+            "Plug 'kana/vim-textobj-user'
+            "Plug 'kana/vim-textobj-indent'
+            "Plug 'gcmt/wildfire.vim'
     " }
 
     " General Programming {
             " Pick one of the checksyntax, jslint, or syntastic
-            Plug 'scrooloose/syntastic'
+            "Plug 'scrooloose/syntastic'
             Plug 'tpope/vim-fugitive'
             Plug 'mattn/webapi-vim'
             Plug 'mattn/gist-vim'
@@ -65,23 +65,22 @@
             endif
     " }
 
-    " Snippets & AutoComplete {
-            Plug 'SirVer/ultisnips'
-            Plug 'honza/vim-snippets'
-            Plug 'Shougo/deoplete.nvim'
-            Plug 'roxma/nvim-yarp'
-            Plug 'roxma/vim-hug-neovim-rpc'
-    " }
 
     " Go Lang {
             Plug 'fatih/vim-go'
             Plug 'AndrewRadev/splitjoin.vim'
-            "Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+    " }
+    
+    
+    " Snippets & AutoComplete {
+            Plug 'SirVer/ultisnips'
+            Plug 'honza/vim-snippets'
+            Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
     " }
 
     " Misc {
-            Plug 'tpope/vim-markdown'
-            Plug 'cespare/vim-toml'
+            "Plug 'tpope/vim-markdown'
+            "Plug 'cespare/vim-toml'
     " }
 
     call plug#end()
