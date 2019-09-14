@@ -1,26 +1,29 @@
 " custom settings from vim-go plugin {
 "
-    "call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
-
     let g:go_disable_autoinstall = 1
-    let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-    let g:syntastic_mode_map = { 'mode': 'active',
-   \ 'active_filetypes': [],
-       \ 'passive_filetypes': ['go'] }
+    "let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+    "let g:syntastic_mode_map = { 'mode': 'active',
+   "\ 'active_filetypes': [],
+       "\ 'passive_filetypes': ['go'] }
     let g:go_list_type = "quickfix"
-    let g:go_snippet_engine = "neosnippet"
+    "let g:go_snippet_engine = "neosnippet"
     let g:go_fmt_command = "goimports"
-    let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+    let g:go_metalinter_enabled = ['golangci-lint']
+    let g:go_metalinter_command = "golangci-lint"
     " matching identifier
     "let g:go_auto_sameids = 1
+    "
+    " disable vim-go :GoDef short cut (gd)
+    " this is handled by LanguageClient [LC]
+    let g:go_def_mapping_enabled = 0
 " }
 " highlights various things in go {
-    let g:go_highlight_types = 1
-    let g:go_highlight_fields = 1
-    let g:go_highlight_functions = 1
-    let g:go_highlight_methods = 1
-    let g:go_highlight_operators = 1
-    let g:go_highlight_extra_types = 1
+    "let g:go_highlight_types = 1
+    "let g:go_highlight_fields = 1
+    "let g:go_highlight_functions = 1
+    "let g:go_highlight_methods = 1
+    "let g:go_highlight_operators = 1
+    "let g:go_highlight_extra_types = 1
 " }
 
 " jump between errors in quickfix list {
@@ -30,46 +33,36 @@
 " }
 
 " custom golang mapping from vim-go plugin {
-" Show type info for the word under your cursor with <leader>i
-    au FileType go nmap <Leader>i <Plug>(go-info)
 " Run commands, such as go run with <leader>r for the current file or go build
 " and go test for the current package with <leader>b and <leader>t
     au FileType go nmap <Leader>r <Plug>(go-run)
-    au FileType go nmap <Leader>b :<C-u>call GoErrorReport()<CR>
+    au FileType go nmap <Leader>b <Plug>(go-build)
     au FileType go nmap <Leader>t <Plug>(go-test)
     au FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 " Calls `go-metalinter` for the current directory
     au FileType go nmap <Leader>l <Plug>(go-metalinter)
 " open the definition/declaration in a new vertical, horizontal or tab for the
 " word under your cursor
-    au FileType go nmap <Leader>ds <Plug>(go-def-split)
-    au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-    au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+    "au FileType go nmap <Leader>ds <Plug>(go-def-split)
+    "au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+    "au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 " open the relevant Godoc for the word under the cursor with <leader>gd or 
-" open it vertically with <leader>gv
-" open it in a tab with <leader>gta
-    au FileType go nmap <Leader>pc <Plug>(go-doc)
-    au FileType go nmap <Leader>pv <Plug>(go-doc-vertical)
-    au FileType go nmap <Leader>pt <Plug>(go-doc-tab)
+    "au FileType go nmap <Leader>pc <Plug>(go-doc)
+    "au FileType go nmap <Leader>pv <Plug>(go-doc-vertical)
+    "au FileType go nmap <Leader>pt <Plug>(go-doc-tab)
 " Rename the identifier under the cursor to a new name
-    au FileType go nmap <Leader>pn <Plug>(go-rename)
+    "au FileType go nmap <Leader>pn <Plug>(go-rename)
 " Show source files that depends for the current package
     au FileType go nmap <Leader>pf <Plug>(go-files)
 " Show dependencies for the current package 
-    au FileType go nmap <Leader>pd <Plug>(go-deps)
+    "au FileType go nmap <Leader>pd <Plug>(go-deps)
 " Describe selected syntax: definition, methods, etc
-    au FileType go nmap <Leader>ps <Plug>(go-describe)
+    "au FileType go nmap <Leader>ps <Plug>(go-describe)
+    "au FileType go nmap <Leader>i <Plug>(go-info)
 " Show the interfaces that the type under the cursor implements
-	au FileType go nmap <Leader>pi <Plug>(go-implements)
+	"au FileType go nmap <Leader>pi <Plug>(go-implements)
 " }
 
-function! GoErrorReport()
-    if match(expand('%'),'\m_test\.go$') == -1
-        call go#cmd#Build(0)
-    else
-        call go#cmd#Test(0, 1)
-    endif
-endfunction
 
 " Opening an alternate file { 
     au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
@@ -80,3 +73,10 @@ endfunction
     au FileType go nmap <Leader>av <Plug>(go-alternate-vertical)
 " } 
 
+function! GoErrorReport()
+    if match(expand('%'),'\m_test\.go$') == -1
+        call go#cmd#Build(0)
+    else
+        call go#cmd#Test(0, 1)
+    endif
+endfunction

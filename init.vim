@@ -19,7 +19,8 @@
 " }
 "
 " Custom vim configuration path {
-    if exists('$VIMDIR')
+    if exists('$XDG_CONFIG_HOME')
+        let $VIMDIR=$XDG_CONFIG_HOME.'/nvim'
         let $MYVIMPLUG=$VIMDIR
         let $MYPLUGINS=$VIMDIR.'/plugged'
     endif
@@ -48,7 +49,6 @@
 " }
 
 " General {
-    "set background=dark         " Assume a dark background
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
     set mouse=a                 " Automatically enable mouse usage
@@ -63,8 +63,9 @@
         endif
     endif
 
-    "set autowrite                       " Automatically write a file when leaving a modified buffer
-    set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+    set nobackup                  
+    set nowritebackup
+    set shortmess+=c          " Abbrev. of messages (avoids 'hit enter')
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
@@ -73,20 +74,15 @@
     set iskeyword-=. " '.' is an end of word designator
     set iskeyword-=# " '#' is an end of word designator
     set iskeyword-=- " '-' is an end of word designator
+    set signcolumn=yes " always show signcolumns
+    set cmdheight=2    " better display for messages
+    set updatetime=300 " Smaller updatetime for CursorHold & CursorHoldI
 
-    " Instead of reverting the cursor to the last position in the buffer, we
-    " set it to the first line when editing a git commit message
-    au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
-
-    " Setting up the directories {
-        set backup                  " Backups are nice ...
-        if has('persistent_undo')
-            set undofile                " So is persistent undo ...
-            set undolevels=1000         " Maximum number of changes that can be undone
-            set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
-        endif
-
-    " }
+    if has('persistent_undo')
+        set undofile                " So is persistent undo ...
+        set undolevels=1000         " Maximum number of changes that can be undone
+        set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
+    endif
 
 " }
 
@@ -103,7 +99,6 @@
 
     highlight clear SignColumn      " SignColumn should match background for
                                     " things like vim-gitgutter
-
     highlight clear LineNr          " Current line number row will have same background color in relative mode.
                                     " Things like vim-gitgutter will match LineNr highlight
     if has('cmdline_info')
@@ -161,7 +156,6 @@
     set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
     set splitright                  " Puts new vsplit windows to the right of the current
     set splitbelow                  " Puts new split windows to the bottom of the current
-    "set matchpairs+=<:>             " Match, to be used with %
     set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 " }
 
@@ -220,9 +214,6 @@
     " http://stackoverflow.com/a/8064607/127816
     vnoremap . :normal .<CR>
 
-    " For when you forget to sudo.. Really Write the file.
-    cmap w!! w !sudo tee % >/dev/null
-
     " Some helpers to edit mode
     " http://vimcasts.org/e/14
     cnoremap %% <C-R>=expand('%:h').'/'<cr>
@@ -247,19 +238,19 @@
 " Plugins {
 
     " TextObj Sentence {
-        augroup textobj_sentence
-            autocmd!
-            autocmd FileType markdown call textobj#sentence#init()
-            autocmd FileType text call textobj#sentence#init()
-        augroup END
+        "augroup textobj_sentence
+            "autocmd!
+            "autocmd FileType markdown call textobj#sentence#init()
+            "autocmd FileType text call textobj#sentence#init()
+        "augroup END
     " }
 
     " TextObj Quote {
-        augroup textobj_quote
-            autocmd!
-            autocmd FileType markdown call textobj#quote#init()
-            autocmd FileType text call textobj#quote#init({'educate': 0})
-        augroup END
+        "augroup textobj_quote
+            "autocmd!
+            "autocmd FileType markdown call textobj#quote#init()
+            "autocmd FileType text call textobj#quote#init({'educate': 0})
+        "augroup END
     " }
 
     " Misc {
@@ -414,12 +405,6 @@
         return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
     endfunction
 
-    "fu! LightLineFilename()
-    "    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-    "        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-    "        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
-    "endfunction
-
    fu! LightLineModified()
         if &filetype == "help"
             return ""
@@ -453,34 +438,96 @@
 " }
 
 " syntastic {
-        if isdirectory(expand($MYPLUGINS."/syntastic"))
-            let g:syntastic_always_populate_loc_list = 1
-            let g:syntastic_auto_loc_list = 1
-            let g:syntastic_check_on_wq = 0
-        endif
-" }
-"
-" deoplete {
-        let g:deoplete#enable_at_startup = 1
+        "if isdirectory(expand($MYPLUGINS."/syntastic"))
+            "let g:syntastic_always_populate_loc_list = 1
+            "let g:syntastic_auto_loc_list = 1
+            "let g:syntastic_check_on_wq = 0
+        "endif
 " }
 "
 " snippets {
-        let g:UltiSnipsExpandTrigger="<C-j>"
-        let g:UltiSnipsJumpForwardTrigger="<C-n>"
-        let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-        if isdirectory($MYPLUGINS."/vim-go/gosnippets/UltiSnips")
-            if isdirectory($MYPLUGINS."/vim-snippets/UltiSnips")
-                let g:UltiSnipsSnippetDirectories=[$MYPLUGINS."/vim-go/gosnippets/UltiSnips", $MYPLUGINS."/vim-snippets/UltiSnips"]
-            else
-                let g:UltiSnipsSnippetDirectories=[$MYPLUGINS."/vim-go/gosnippets/UltiSnips"]
-            endif
-        endif
+        "let g:UltiSnipsExpandTrigger="<C-j>"
+        "let g:UltiSnipsJumpForwardTrigger="<C-n>"
+        "let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+        "if isdirectory($MYPLUGINS."/vim-go/gosnippets/UltiSnips")
+            "if isdirectory($MYPLUGINS."/vim-snippets/UltiSnips")
+                "let g:UltiSnipsSnippetDirectories=[$MYPLUGINS."/vim-go/gosnippets/UltiSnips", $MYPLUGINS."/vim-snippets/UltiSnips"]
+            "else
+                "let g:UltiSnipsSnippetDirectories=[$MYPLUGINS."/vim-go/gosnippets/UltiSnips"]
+            "endif
+        "endif
 " }
+
+" coc.vim {
+    " Use tab for trigger completion with characters ahead and navigate.
+    " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+    inoremap <silent><expr> <TAB>
+          \ pumvisible() ? "\<C-n>" :
+          \ <SID>check_back_space() ? "\<TAB>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+
+    " Use <c-space> to trigger completion.
+    inoremap <silent><expr> <c-space> coc#refresh()
+
+    " Use `[c` and `]c` to navigate diagnostics
+    nmap <silent> [c <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+    " Highlight symbol under cursor on CursorHold
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+    " open the definition/declaration under the cursor
+    nmap <silent> pc <Plug>(coc-definition)
+    nmap <silent> ds <Plug>(coc-type-definition)
+    " Show the interfaces that the type under the cursor implements
+    nmap <silent> pi <Plug>(coc-implementation)
+    nmap <silent> pr <Plug>(coc-references)
+    " Use U to show documentation in preview window
+    nnoremap <silent> U :call <SID>show_documentation()<CR>
+    " Remap for rename current word
+    nmap <Leader>pn <Plug>(coc-rename)
+
+    " Remap for format selected region
+    xmap <Leader>f  <Plug>(coc-format-selected)
+    nmap <Leader>f  <Plug>(coc-format-selected)
+
+    " Using CocList
+    " Show all diagnostics
+    nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+    " Manage extensions
+    nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+    " Show commands
+    nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+    " Find symbol of current document
+    nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+    " Search workspace symbols
+    nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+    " Do default action for next item.
+    nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+    " Do default action for previous item.
+    nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+    " Resume latest coc list
+    nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" }"
     
 " Functions {
+    fu! s:show_documentation()
+      if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+      else
+        call CocAction('doHover')
+      endif
+    endfunction
+
+    fu! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
 
     " Initialize directories {
-    function! InitializeDirectories()
+    fu! InitializeDirectories()
         let parent = $HOME
         let prefix = 'vim'
         let dir_list = {
@@ -512,7 +559,7 @@
             endif
         endfor
     endfunction
-    call InitializeDirectories()
+    "call InitializeDirectories()
     " }
 
     " Initialize NERDTree as needed {
