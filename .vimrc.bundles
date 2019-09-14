@@ -5,7 +5,7 @@
 "
 " Environment {
     " Setup Plugin Support {
-        set rtp+=$VIMDIR
+        set rtp+=$NVIMDIR
         call plug#begin($MYPLUGINS)
     " }
 

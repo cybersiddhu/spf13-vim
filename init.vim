@@ -19,10 +19,9 @@
 " }
 "
 " Custom vim configuration path {
-    if exists('$XDG_CONFIG_HOME')
-        let $VIMDIR=$XDG_CONFIG_HOME.'/nvim'
-        let $MYVIMPLUG=$VIMDIR
-        let $MYPLUGINS=$VIMDIR.'/plugged'
+    if exists('$NVIMDIR')
+        let $MYVIMPLUG=$NVIMDIR
+        let $MYPLUGINS=$NVIMDIR.'/plugged'
     endif
 
 " }
@@ -30,16 +29,16 @@
 " Before {
 "
     " Use before config if available {
-        if filereadable(expand($VIMDIR ."/.vimrc.before"))
-            let $MYB = $VIMDIR. '/.vimrc.before'
+        if filereadable(expand($NVIMDIR ."/.vimrc.before"))
+            let $MYB = $NVIMDIR. '/.vimrc.before'
             source $MYB
         endif
     " }
     "
     " Check to see the various options that could be overridden. 
     " Use bundles config. {
-        if filereadable(expand($VIMDIR . "/.vimrc.bundles"))
-            let $MYB = $VIMDIR. '/.vimrc.bundles'
+        if filereadable(expand($NVIMDIR . "/.vimrc.bundles"))
+            let $MYB = $NVIMDIR. '/.vimrc.bundles'
             source $MYB
         endif
     " }
@@ -620,8 +619,8 @@
 " .vimrc.bundles.local because the default .vimrc might set options in them
 " which might throw error.
 " Use local vimrc if available {
-   if filereadable(expand($VIMDIR. "/.vimrc.local"))
-       let $MYL = $VIMDIR. '/.vimrc.local'
+   if filereadable(expand($NVIMDIR. "/.vimrc.local"))
+       let $MYL = $NVIMDIR. '/.vimrc.local'
        source $MYL
    endif
 " }
