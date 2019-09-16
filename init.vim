@@ -236,22 +236,6 @@
 
 " Plugins {
 
-    " TextObj Sentence {
-        "augroup textobj_sentence
-            "autocmd!
-            "autocmd FileType markdown call textobj#sentence#init()
-            "autocmd FileType text call textobj#sentence#init()
-        "augroup END
-    " }
-
-    " TextObj Quote {
-        "augroup textobj_quote
-            "autocmd!
-            "autocmd FileType markdown call textobj#quote#init()
-            "autocmd FileType text call textobj#quote#init({'educate': 0})
-        "augroup END
-    " }
-
     " Misc {
         if isdirectory(expand($MYPLUGINS."/nerdtree"))
             let g:NERDShutUp=1
