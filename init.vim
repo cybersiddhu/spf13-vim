@@ -436,14 +436,6 @@
 
 " }
 
-" syntastic {
-        "if isdirectory(expand($MYPLUGINS."/syntastic"))
-            "let g:syntastic_always_populate_loc_list = 1
-            "let g:syntastic_auto_loc_list = 1
-            "let g:syntastic_check_on_wq = 0
-        "endif
-" }
-"
 " snippets {
         "let g:UltiSnipsExpandTrigger="<C-j>"
         "let g:UltiSnipsJumpForwardTrigger="<C-n>"
