@@ -70,10 +70,10 @@
             Plug 'AndrewRadev/splitjoin.vim'
     " }
     
-    " Snippets & AutoComplete {
-            Plug 'SirVer/ultisnips'
+    " Snippets & AutoComplete & Other coc extensions {
             Plug 'honza/vim-snippets'
             Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+            Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
     " }
 
     " Misc {
