@@ -41,3 +41,6 @@
     au FileType go nmap <Leader>as <Plug>(go-alternate-split)
     au FileType go nmap <Leader>av <Plug>(go-alternate-vertical)
 " } 
+"
+" configure
+  au FileType go let b:coc_root_patterns = ['.git', 'go.mod']
