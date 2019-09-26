@@ -34,7 +34,6 @@
             Plug 'tpope/vim-surround'
             Plug 'tpope/vim-repeat'
             Plug 'ctrlpvim/ctrlp.vim'
-            "Plug 'terryma/vim-multiple-cursors'
             Plug 'vim-scripts/sessionman.vim'
             Plug 'itchyny/lightline.vim'
             Plug 'bling/vim-bufferline'
@@ -44,17 +43,9 @@
             Plug 'nathanaelkane/vim-indent-guides'
             Plug 'ryanoasis/vim-devicons'
             Plug 'vim-scripts/restore_view.vim'
-            "Plug 'mhinz/vim-signify'
-            "Plug 'tpope/vim-abolish.git'
-            "Plug 'osyo-manga/vim-over'
-            "Plug 'kana/vim-textobj-user'
-            "Plug 'kana/vim-textobj-indent'
-            "Plug 'gcmt/wildfire.vim'
     " }
 
     " General Programming {
-            " Pick one of the checksyntax, jslint, or syntastic
-            "Plug 'scrooloose/syntastic'
             Plug 'tpope/vim-fugitive'
             Plug 'mattn/webapi-vim'
             Plug 'mattn/gist-vim'
@@ -79,8 +70,9 @@
     " }
 
     " Misc {
-            "Plug 'tpope/vim-markdown'
-            "Plug 'cespare/vim-toml'
+            Plug 'godlygeek/tabular'
+            Plug 'plasticboy/vim-markdown'
+            Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
     " }
 
     call plug#end()

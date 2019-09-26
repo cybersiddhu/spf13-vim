@@ -454,8 +454,26 @@
         imap <C-j> <Plug>(coc-snippets-expand-jump)
     " }
 
-    " yaml {
+    " yank {
         nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+    " }
+
+    " markdown { 
+        let g:vim_markdown_folding_style_pythonic = 1
+        let g:vim_markdown_follow_anchor = 1
+        let g:vim_markdown_autowrite = 1
+        let g:vim_markdown_auto_insert_bullets = 0
+        let g:vim_markdown_edit_url_in = 'tab'
+    " }
+
+    " markdown preview {
+        let g:mkdp_refresh_slow = 1
+        let g:mkdp_open_to_the_world = 1
+        let g:mkdp_echo_preview_url = 1
+        let g:mkdp_port = '9255'
+        if exists('$NVIMDIR')
+            let g:mkdp_markdown_css = $NVIMDIR.'/markdown/github-markdown.css'
+        endif
     " }
 
 " }
