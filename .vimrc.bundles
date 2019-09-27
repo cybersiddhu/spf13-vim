@@ -46,7 +46,7 @@
     " }
 
     " General Programming {
-            Plug 'tpope/vim-fugitive'
+            Plug 'tpope/vim-fugitive', { 'tag': 'v3.0' }
             Plug 'mattn/webapi-vim'
             Plug 'mattn/gist-vim'
             Plug 'scrooloose/nerdcommenter'
