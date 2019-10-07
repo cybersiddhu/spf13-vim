@@ -45,13 +45,3 @@
 " configure
   "au FileType go let b:coc_root_patterns = ['.git', 'go.mod']
 
-" protocol buffer {
-" ,f will format and fix your current file.
-" Change to PrototoolFormat to only format and not fix.
-   au FileType proto nnoremap <silent> <Leader>f :call PrototoolFormatFix()<CR>
-   " ,e will toggle formatting and fixing on and off.
-   " Change to PrototoolFormatToggle to toggle with only format and not fix instead.
-   au FileType proto nnoremap <silent> <Leader>e :call PrototoolFormatToggle()<CR>
-   " ,c will toggle create on and off.
-   au FileType proto nnoremap <silent> <Leader>c :call PrototoolCreateToggle()<CR>
-" }

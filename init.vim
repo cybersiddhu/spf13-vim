@@ -409,8 +409,8 @@
         nmap <Leader>pn <Plug>(coc-rename)
 
         " Remap for format selected region
-        xmap <Leader>f  <Plug>(coc-format-selected)
-        nmap <Leader>f  <Plug>(coc-format-selected)
+        "xmap <Leader>f  <Plug>(coc-format-selected)
+        "nmap <Leader>f  <Plug>(coc-format-selected)
 
         " Using CocList
         " Show all diagnostics
