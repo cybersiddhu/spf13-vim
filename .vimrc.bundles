@@ -75,6 +75,11 @@
             Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
     " }
 
+    " Prototool {
+            Plug 'neomake/neomake'
+            Plug 'uber/prototool', { 'rtp':'vim/prototool' }
+    " }
+
     call plug#end()
 
 " }
