@@ -409,8 +409,28 @@
         nmap <Leader>pn <Plug>(coc-rename)
 
         " Remap for format selected region
-        "xmap <Leader>f  <Plug>(coc-format-selected)
-        "nmap <Leader>f  <Plug>(coc-format-selected)
+        xmap <Leader>f  <Plug>(coc-format-selected)
+        nmap <Leader>f  <Plug>(coc-format-selected)
+        vmap <Leader>f  <Plug>(coc-format-selected)
+
+        " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+        xmap <leader>a  <Plug>(coc-codeaction-selected)
+        nmap <leader>a  <Plug>(coc-codeaction-selected)
+        " Remap for do codeAction of current line
+        nmap <leader>ac  <Plug>(coc-codeaction)
+        " Fix autofix problem of current line
+        nmap <leader>qf  <Plug>(coc-fix-current)
+
+        " Create mappings for function text object, requires document symbols feature of languageserver.
+        xmap if <Plug>(coc-funcobj-i)
+        xmap af <Plug>(coc-funcobj-a)
+        omap if <Plug>(coc-funcobj-i)
+        omap af <Plug>(coc-funcobj-a)
+
+        " Use <C-d> for select selections ranges, needs server support
+        nmap <silent> <C-d> <Plug>(coc-range-select)
+        xmap <silent> <C-d> <Plug>(coc-range-select)
+
 
         " Using CocList
         " Show all diagnostics
