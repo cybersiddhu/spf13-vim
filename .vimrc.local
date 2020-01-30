@@ -10,7 +10,7 @@
     " disable vim-go :GoDef short cut (gd)
     " this is handled by LanguageClient [LC]
     let g:go_def_mapping_enabled = 0
-    let g:go_def_mode = 'guru'
+    let g:go_def_mode = 'gopls'
 " }
 
 " jump between errors in quickfix list {
@@ -22,29 +22,36 @@
 " custom golang mapping from vim-go plugin {
 " Run commands, such as go run with <leader>r for the current file or go build
 " and go test for the current package with <leader>b and <leader>t
-    au FileType go nmap <Leader>r <Plug>(go-run)
-    au FileType go nmap <Leader>b <Plug>(go-build)
-    au FileType go nmap <Leader>t <Plug>(go-test)
-    au FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-" Calls `go-metalinter` for the current directory
-    au FileType go nmap <Leader>l <Plug>(go-metalinter)
-" Show source files that depends for the current package
-    au FileType go nmap <Leader>pf <Plug>(go-files)
-" Search and navigate functions
-    au FileType go nmap <Leader>fd :GoDeclsDir<CR>
+    augroup gobind
+        autocmd!
+        au FileType go nmap <Leader>r <Plug>(go-run)
+        au FileType go nmap <Leader>b <Plug>(go-build)
+        au FileType go nmap <Leader>t <Plug>(go-test)
+        au FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+    " Calls `go-metalinter` for the current directory
+        au FileType go nmap <Leader>l <Plug>(go-metalinter)
+    " Show source files that depends for the current package
+        au FileType go nmap <Leader>pf <Plug>(go-files)
+    " Search and navigate functions
+        au FileType go nmap <Leader>fd :GoDeclsDir<CR>
+    " Identifier resolution
+        au FileType go nmap <Leader>i <Plug>(go-info)
+    " Identifier highlights
+        au FileType go nmap <Leader>si :GoSameIds<CR>
+        au FileType go nmap <Leader>sc :GoSameIdsClear<CR>
 " }
 
+    " Opening an alternate file { 
+        au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+        au Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+        au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+        au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+        au FileType go nmap <Leader>as <Plug>(go-alternate-split)
+        au FileType go nmap <Leader>ae <Plug>(go-alternate-edit)
+        au FileType go nmap <Leader>av <Plug>(go-alternate-vertical)
+    " } 
+    augroup END
 
-" Opening an alternate file { 
-    au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-    au Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-    au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-    au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-    au FileType go nmap <Leader>as <Plug>(go-alternate-split)
-    au FileType go nmap <Leader>ae <Plug>(go-alternate-edit)
-    au FileType go nmap <Leader>av <Plug>(go-alternate-vertical)
-" } 
-"
 " configure
   "au FileType go let b:coc_root_patterns = ['.git', 'go.mod']
 
