@@ -30,6 +30,8 @@
     au FileType go nmap <Leader>l <Plug>(go-metalinter)
 " Show source files that depends for the current package
     au FileType go nmap <Leader>pf <Plug>(go-files)
+" Search and navigate functions
+    au FileType go nmap <Leader>fd :GoDeclsDir<CR>
 " }
 
 
@@ -39,6 +41,7 @@
     au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
     au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
     au FileType go nmap <Leader>as <Plug>(go-alternate-split)
+    au FileType go nmap <Leader>ae <Plug>(go-alternate-edit)
     au FileType go nmap <Leader>av <Plug>(go-alternate-vertical)
 " } 
 "
