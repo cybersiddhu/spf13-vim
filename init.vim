@@ -428,8 +428,8 @@
         omap af <Plug>(coc-funcobj-a)
 
         " Use <C-d> for select selections ranges, needs server support
-        nmap <silent> <C-d> <Plug>(coc-range-select)
-        xmap <silent> <C-d> <Plug>(coc-range-select)
+        "nmap <silent> <C-d> <Plug>(coc-range-select)
+        "xmap <silent> <C-d> <Plug>(coc-range-select)
 
 
         " Using CocList
