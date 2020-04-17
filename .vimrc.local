@@ -14,8 +14,10 @@
 " }
 
 " jump between errors in quickfix list {
-    map <C-n> :cnext<CR>
-    map <C-m> :cprevious<CR>
+    map ]q :cnext<CR>
+    map [q :cprevious<CR>
+    map [Q :cfirst<CR>
+    map ]Q :clast<CR>
     nnoremap <Leader>a :cclose<CR>
 " }
 
