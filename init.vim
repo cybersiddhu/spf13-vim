@@ -332,12 +332,14 @@
             nnoremap <silent> <leader>gb :Gblame<CR>
             nnoremap <silent> <leader>gl :Glog<CR>
             nnoremap <silent> <leader>gp :Git push<CR>
-            nnoremap <silent> <leader>gr :Gread<CR>:GitGutter<CR>
-            nnoremap <silent> <leader>gw :Gwrite<CR>:GitGutter<CR>
-            nnoremap <silent> <leader>ge :Gedit<CR>
-            nnoremap <silent> <leader>gg :GitGutterToggle<CR>
         endif
     "}
+
+    " Signify {
+        if isdirectory(expand($MYPLUGINS."/vim-signify"))
+        " default updatetime 4000ms is not good for async update
+            set updatetime=100
+    " }
 
     " UndoTree {
         if isdirectory(expand($MYPLUGINS.'/undotree'))
