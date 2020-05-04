@@ -272,37 +272,6 @@
         endif
     " }
 
-    " ctrlp {
-        if isdirectory(expand($MYPLUGINS."/ctrlp.vim"))
-            let g:ctrlp_working_path_mode = 'ra'
-            nnoremap <silent> <D-t> :CtrlP<CR>
-            nnoremap <silent> <D-r> :CtrlPMRU<CR>
-            let g:ctrlp_custom_ignore = {
-                \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-                \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
-
-        " On Windows use "dir" as fallback command.
-            if has('win32') || has('win64')
-                let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
-            elseif executable('ag')
-                let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
-            elseif executable('ack-grep')
-                let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
-            elseif executable('ack')
-                let s:ctrlp_fallback = 'ack %s --nocolor -f'
-            else
-                let s:ctrlp_fallback = 'find %s -type f'
-            endif
-            let g:ctrlp_user_command = {
-                        \ 'types': {
-                        \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-                        \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-                        \ },
-                        \ 'fallback': s:ctrlp_fallback
-                        \ }
-        endif
-    "}
-
     " TagBar {
         if isdirectory(expand($MYPLUGINS."/tagbar"))
             nnoremap <silent> <leader>tt :TagbarToggle<CR>
@@ -382,96 +351,94 @@
     "  }
 
     " coc.vim {
-        " Use tab for trigger completion with characters ahead and navigate.
-        " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-        inoremap <silent><expr> <TAB>
-              \ pumvisible() ? "\<C-n>" :
+       " Map <tab> for trigger completion, completion confirm, snippet expand and jump
+       " like VSCode. >
+       inoremap <silent><expr> <TAB>
+              \ pumvisible() ? coc#_select_confirm() :
+              \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
               \ <SID>check_back_space() ? "\<TAB>" :
               \ coc#refresh()
-        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-        " Use <c-space> to trigger completion.
-        " "inoremap <silent><expr> <c-space> coc#refresh()
-
-
-        " Use `[c` and `]c` to navigate diagnostics
-        nmap <silent> [c <Plug>(coc-diagnostic-prev)
-        nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
         " Highlight symbol under cursor on CursorHold
         autocmd CursorHold * silent call CocActionAsync('highlight')
+
         " open the definition/declaration under the cursor
-        nmap <silent> pc <Plug>(coc-definition)
-        nmap <silent> ds <Plug>(coc-type-definition)
+        nmap <silent> pd <Plug>(coc-definition)
+        nmap <silent> pt <Plug>(coc-type-definition)
+        nmap <silent> pe <Plug>(coc-declaration)
+
         " Show the interfaces that the type under the cursor implements
         nmap <silent> pi <Plug>(coc-implementation)
-        nmap <silent> pr <Plug>(coc-references)
-        " Use U to show documentation in preview window
-        nnoremap <silent> U :call <SID>show_documentation()<CR>
-        " Remap for rename current word
-        nmap <Leader>pn <Plug>(coc-rename)
 
-        " Remap for format selected region
-        xmap <Leader>f  <Plug>(coc-format-selected)
+        " Jump to references of current symbol"
+        nmap <silent> pr <Plug>(coc-references)
+
+        " Rename current word
+        nmap <silent> pn <Plug>(coc-rename)
+
+        " Open refactor window"
+        nmap <silent> pf <Plug>(coc-refactor)
+
+        " Fix autofix problem of current line
+        nmap <silent> pi <Plug>(coc-fix-current)
+
+        " Format selected region
+        " ex: `<Leader>fap` for current paragraph
         nmap <Leader>f  <Plug>(coc-format-selected)
         vmap <Leader>f  <Plug>(coc-format-selected)
+        " Use :Format to format the current buffer
+        command! -nargs=0 Format :call CocAction('format')
 
-        " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-        xmap <leader>a  <Plug>(coc-codeaction-selected)
-        nmap <leader>a  <Plug>(coc-codeaction-selected)
-        " Remap for do codeAction of current line
-        nmap <leader>ac  <Plug>(coc-codeaction)
-        " Fix autofix problem of current line
-        nmap <leader>qf  <Plug>(coc-fix-current)
+        " Use U to show documentation in preview window
+        nnoremap <silent> U :call <SID>show_documentation()<CR>
 
-        " Create mappings for function text object, requires document symbols feature of languageserver.
-        xmap if <Plug>(coc-funcobj-i)
-        xmap af <Plug>(coc-funcobj-a)
-        omap if <Plug>(coc-funcobj-i)
-        omap af <Plug>(coc-funcobj-a)
+        " Run code action(s) of current line
+        nmap <silent> pc <Plug>(coc-codeaction)
+        " Run code action(s) for selected region
+        " ex: `<leader>aap` for current paragraph
+        xmap <Leader>a  <Plug>(coc-codeaction-selected)
+        nmap <Leader>a  <Plug>(coc-codeaction-selected)
 
-        " Use <C-d> for select selections ranges, needs server support
-        "nmap <silent> <C-d> <Plug>(coc-range-select)
-        "xmap <silent> <C-d> <Plug>(coc-range-select)
+
+        " Use <C-d> for select selections ranges
+        nmap <silent> <C-s> <Plug>(coc-range-select)
+        xmap <silent> <C-s> <Plug>(coc-range-select)
+        xmap <silent> <C-r> <Plug>(coc-range-select-backward)
 
 
         " Using CocList
         " Show all diagnostics
         nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-        " Manage extensions
-        nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+        " Use `[c` and `]c` to navigate diagnostics
+        nmap <silent> [c <Plug>(coc-diagnostic-prev)
+        nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
         " Show commands
         nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+
         " Find symbol of current document
         nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+
         " Search workspace symbols
         nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+
         " Do default action for next item.
         nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+
         " Do default action for previous item.
         nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+
         " Resume latest coc list
         nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
     " }"
 
     " snippets {
-
-        " Use enter to accept snippet expansion
-        inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
-                                               \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
         " Use <C-l> for trigger snippet expand.
         imap <C-l> <Plug>(coc-snippets-expand)
 
         " Use <C-j> for select text for visual placeholder of snippet.
         vmap <C-j> <Plug>(coc-snippets-select)
-
-        " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-        let g:coc_snippet_next = '<c-j>'
-
-        " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-        let g:coc_snippet_prev = '<c-k>'
 
         " Use <C-j> for both expand and jump (make expand higher priority.)
         imap <C-j> <Plug>(coc-snippets-expand-jump)
